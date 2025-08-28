@@ -1,0 +1,289 @@
+/* ========== Theme (KHÔNG dùng #971AFE) ========== */
+:root {
+  --hdr-grad-a: #0f172a; /* midnight */
+  --hdr-grad-b: #4338ca; /* indigo-600 */
+  --hdr-dark: #0b1220; /* nền tối cho blur */
+  --hdr-text: #ffffff;
+}
+
+/* Header container */
+.header-app {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 0;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+      180deg,
+      rgba(11, 18, 32, 0.55),
+      rgba(11, 18, 32, 0) 30%
+    ),
+    linear-gradient(90deg, var(--hdr-grad-a), var(--hdr-grad-b));
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+/* Top row: brand + search + actions */
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  min-height: 64px;
+}
+
+/* Brand */
+.brand {
+  display: flex;
+  align-items: center;
+  min-width: 160px;
+}
+.logo-wrap {
+  display: flex;
+  align-items: center;
+}
+.brand-logo {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.25))
+    drop-shadow(0 0 1px rgba(255, 255, 255, 0.65));
+  transform: scale(3.35);
+  transform-origin: center;
+  margin-left: 30px;
+}
+
+/* Search */
+.header-search {
+  flex: 1;
+  max-width: 980px;
+}
+.header-app .ant-input-affix-wrapper {
+  border-radius: 12px;
+  border: none;
+  padding: 6px 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+.header-app .ant-input-affix-wrapper:focus,
+.header-app .ant-input-affix-wrapper-focused {
+  box-shadow: 0 10px 24px rgba(34, 211, 238, 0.35);
+}
+
+/* Right icons */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--hdr-text);
+}
+.header-icon {
+  font-size: 20px;
+}
+.burger {
+  color: #fff;
+  font-size: 18px;
+}
+
+/* Nav row */
+.nav-wrap {
+  padding: 0 5px;
+}
+.nav-menu {
+  background: transparent !important;
+  border: none !important;
+}
+.nav-menu .ant-menu-item {
+  color: #fff !important;
+  font-weight: 600;
+  font-size: 18px;
+}
+.nav-menu .ant-menu-item:hover {
+  color: #e8f7ff !important;
+}
+
+/* Cho phép tràn ngang */
+.nav-wrap .ant-menu {
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.nav-wrap .ant-menu::-webkit-scrollbar {
+  height: 0;
+}
+
+/* Link text style */
+.text-menu {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+.text-menu:hover {
+  color: #e8f7ff;
+}
+
+/* Drawer (mobile) */
+.nav-drawer .ant-drawer-header {
+  background: var(--hdr-dark);
+  color: #fff;
+}
+.nav-drawer .ant-drawer-body {
+  padding-top: 12px;
+}
+.drawer-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.drawer-head .brand-logo {
+  height: 36px;
+}
+.drawer-search {
+  margin-bottom: 12px;
+}
+.drawer-menu .ant-menu-item {
+  font-weight: 600;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 992px) {
+  .header-search {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Ẩn menu ngang, dùng Drawer */
+  .nav-wrap {
+    display: none;
+  }
+  .brand-logo {
+    height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-inner {
+    padding: 10px 12px;
+  }
+  .brand-logo {
+    height: 36px;
+  }
+}
+
+/* ====== CENTER CONTAINER ====== */
+.header-inner {
+  /* block header nằm giữa màn hình */
+  width: min(1200px, 100% - 32px);
+  margin: 0 auto;
+  justify-content: center; /* căn giữa các item trong hàng */
+  gap: 16px;
+}
+
+/* logo luôn đẹp, không bẹp */
+.brand {
+  display: flex;
+  align-items: center;
+}
+.brand .brand-logo {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* ô search ở chính giữa, chiều rộng hợp lý */
+.header-search {
+  flex: 0 1 780px; /* tối đa 780px, co lại khi hẹp */
+  margin: 0 16px; /* tạo khoảng cách 2 bên */
+}
+
+/* icon bên phải */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ====== NAV ROW CENTER ====== */
+.nav-wrap {
+  display: flex;
+  padding: 0 0 5px;
+}
+.nav-menu {
+  /* block menu nằm giữa màn hình */
+  width: min(1200px, 100% - 32px);
+  margin: 0 auto !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+/* antd v5 dùng overflow container – căn giữa item */
+.nav-menu .ant-menu-overflow {
+  display: flex;
+  justify-content: center; /* 👈 căn giữa các mục */
+}
+.nav-menu .ant-menu-item {
+  padding-inline: 16px;
+  font-weight: 600;
+}
+
+/* nếu có thanh tràn ngang thì ẩn viền & căn giữa vẫn giữ */
+.nav-wrap .ant-menu {
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.nav-wrap .ant-menu::-webkit-scrollbar {
+  height: 0;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 1024px) {
+  .header-search {
+    flex-basis: 640px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Ẩn menu ngang, dùng drawer nếu bạn có; giữ top row giữa */
+  .nav-wrap {
+    display: none;
+  }
+
+  .header-inner {
+    width: min(640px, 100% - 24px);
+    position: relative;
+    justify-content: center; /* phần giữa thật sự ở giữa */
+  }
+
+  /* logo cố định trái, nút/huy hiệu cố định phải,
+     phần còn lại vẫn căn giữa nhờ justify-content:center */
+  .brand {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .header-right {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* ẩn ô search trên mobile (hoặc bạn để lại nếu muốn) */
+  .header-search {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand .brand-logo {
+    height: 40px;
+  }
+}

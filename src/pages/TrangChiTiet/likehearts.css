@@ -1,0 +1,80 @@
+.likeWrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Nút tim */
+.likeBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: var(--lh-btn-py, 10px) var(--lh-btn-px, 14px);
+  border-radius: 999px;
+  border: 0;
+  cursor: pointer;
+  /* background: rgba(255, 77, 79, 0.12); */
+  /* box-shadow: 0 10px 24px rgba(255, 77, 79, 0.18); */
+  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+}
+.likeBtn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+.likeBtn:active {
+  transform: translateY(0);
+}
+
+.heartIcon {
+  font-size: var(--lh-icon-size, 20px);
+  color: #ff4d4f;
+  animation: none;
+}
+.likeBtn.pulse .heartIcon {
+  animation: pop 0.25s ease;
+}
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.likeCount {
+  font-weight: 800;
+  color: #ff4d4f;
+  font-size: var(--lh-count-size, 13px);
+}
+
+/* Tim bay */
+.floatHeart {
+  position: absolute;
+  pointer-events: none;
+  font-size: var(--lh-particle-size, 18px);
+  will-change: transform, opacity;
+  animation: floatUp var(--dur, 800ms) ease-out forwards;
+  filter: drop-shadow(0 6px 14px rgba(255, 77, 79, 0.35));
+}
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8) rotate(0deg);
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(
+        calc(-50% + var(--tx, 0)),
+        calc(-50% + var(--ty, -60px))
+      )
+      rotate(var(--rot, 0deg)) scale(1.2);
+  }
+}

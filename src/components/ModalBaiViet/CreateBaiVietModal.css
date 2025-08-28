@@ -1,0 +1,62 @@
+.create-post-modal .ant-modal-body {
+  padding-top: 12px;
+}
+
+.create-post-modal {
+  margin-top: -35px;
+}
+
+.create-post-modal .ck-label {
+  margin-bottom: 8px;
+}
+
+.create-post-modal .editor-wrap {
+  background: #fff;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  padding: 6px 10px;
+}
+
+.create-post-modal .ck-editor__editable {
+  min-height: 260px;
+}
+
+.create-post-modal .cover-dragger {
+  border-radius: 12px;
+  background: #fafafa;
+}
+
+.create-post-modal .cover-dragger .ant-upload {
+  padding: 8px;
+}
+
+.create-post-modal .drag-inner {
+  padding: 12px 6px;
+}
+
+.create-post-modal .ant-upload-list-picture-card-container {
+  width: 100%;
+  height: auto;
+}
+
+.create-post-modal .ant-upload-list-item {
+  border-radius: 10px;
+}
+
+.create-post-modal .footer-help {
+  margin-top: 6px;
+}
+
+/* Responsive tweak */
+@media (max-width: 768px) {
+  .create-post-modal .ck-editor__editable {
+    min-height: 220px;
+  }
+}
+
+.ck-editor__editable .ck-media__wrapper video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
