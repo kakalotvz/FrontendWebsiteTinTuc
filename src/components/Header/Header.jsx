@@ -67,6 +67,32 @@ const HeaderApp = () => {
         </a>
       ),
     };
+    const catItems = (cats || []).slice(0, 10).map((c) => ({
+      key: c._id || c.slug || slugify(c.ten),
+      label: (
+        <a className="text-menu" onClick={() => goCat(c._id)}>
+          {c.ten}
+        </a>
+      ),
+    }));
+    return [home, ...catItems];
+  }, [cats]);
+
+  const itemsMobile = useMemo(() => {
+    const home = {
+      key: "home",
+      label: (
+        <a
+          className="text-menu"
+          onClick={() => {
+            navigate("/");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+        >
+          Trang chủ
+        </a>
+      ),
+    };
     const catItems = (cats || []).map((c) => ({
       key: c._id || c.slug || slugify(c.ten),
       label: (
@@ -129,8 +155,8 @@ const HeaderApp = () => {
           </Badge> */}
           <Button
             className="burger"
-            type="text"
-            icon={<MenuOutlined />}
+            type="#"
+            icon={<MenuOutlined size={50} />}
             onClick={() => setOpen(true)}
           />
         </Space>
@@ -165,7 +191,7 @@ const HeaderApp = () => {
         </div>
         <Menu
           mode="inline"
-          items={items}
+          items={itemsMobile}
           selectable={false}
           className="drawer-menu"
         />

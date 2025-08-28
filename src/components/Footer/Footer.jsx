@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout, Input, Space, Modal, Typography } from "antd";
 import {
   FacebookFilled,
@@ -7,6 +7,8 @@ import {
   YoutubeFilled,
 } from "@ant-design/icons";
 import "./Footer.css";
+import { apiFetchTongQuat } from "../../services/apiTongQuat";
+import { useNavigate } from "react-router-dom";
 
 const { Footer } = Layout;
 const { Search } = Input;
@@ -15,6 +17,8 @@ const { Title, Paragraph } = Typography;
 const FooterApp = () => {
   const [openTerms, setOpenTerms] = useState(false);
   const [openPrivacy, setOpenPrivacy] = useState(false);
+  const [cats, setCats] = useState([]);
+  const navigate = useNavigate();
 
   const onSubscribe = (email) => {
     if (!email) return;
@@ -28,6 +32,18 @@ const FooterApp = () => {
     if (which === "privacy") setOpenPrivacy(true);
   };
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await apiFetchTongQuat("/bai-viet/get-the-loai", {
+          method: "GET",
+        });
+        setCats(res?.data || []);
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+  }, []);
   return (
     <>
       <Footer className="footer-app">
@@ -64,21 +80,30 @@ const FooterApp = () => {
             <div className="foot-col">
               <div className="foot-title">Chuyên mục</div>
               <ul className="foot-links">
-                <li>
-                  <a href="#">Thời sự</a>
-                </li>
-                <li>
-                  <a href="#">Thể thao</a>
-                </li>
-                <li>
-                  <a href="#">Giải trí</a>
-                </li>
-                <li>
-                  <a href="#">Công nghệ</a>
-                </li>
-                <li>
-                  <a href="#">Giáo dục</a>
-                </li>
+                {cats?.slice(0, 5).map((item) => {
+                  const name = item.ten || "Chuyên mục";
+                  return (
+                    <li key={item._id}>
+                      <a
+                        href="#"
+                        onClick={() => {
+                          window.scrollTo({
+                            top: 0,
+                            behavior: "smooth",
+                          });
+                          navigate(
+                            `/tat-ca-bai-viet?theloai=${encodeURIComponent(
+                              item._id
+                            )}`
+                          );
+                        }}
+                      >
+                        {name}
+                      </a>
+                    </li>
+                  );
+                })}
+                <li>.......</li>
               </ul>
             </div>
 
@@ -91,12 +116,6 @@ const FooterApp = () => {
                 </li>
                 <li>
                   <a href="#">Liên hệ</a>
-                </li>
-                <li>
-                  <a href="#">Quảng cáo</a>
-                </li>
-                <li>
-                  <a href="#">Tuyển dụng</a>
                 </li>
                 <li>
                   <a href="#" onClick={(e) => openLink(e, "terms")}>

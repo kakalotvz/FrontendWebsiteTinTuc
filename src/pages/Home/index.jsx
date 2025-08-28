@@ -365,7 +365,11 @@ import {
   Drawer,
   Descriptions,
 } from "antd";
-import { EyeOutlined, FireOutlined } from "@ant-design/icons";
+import {
+  DoubleRightOutlined,
+  EyeOutlined,
+  FireOutlined,
+} from "@ant-design/icons";
 import "./home.css";
 import { apiFetchTongQuat } from "../../services/apiTongQuat";
 import { useNavigate } from "react-router-dom";
@@ -974,8 +978,20 @@ export default function Home() {
                     <div className="secHead">
                       <h2 style={{ padding: "10px" }}>{c.ten}</h2>
                       <span className="secLine" />
-                      <Button type="link" href={`#`} className="viewAll">
-                        Xem tất cả
+                      <Button
+                        type="link"
+                        href={`#`}
+                        className="viewAll"
+                        onClick={() => {
+                          navigate(
+                            `/tat-ca-bai-viet?theloai=${encodeURIComponent(
+                              c._id
+                            )}`
+                          );
+                          window.scrollTo({ top: 0, behavior: "smooth" });
+                        }}
+                      >
+                        Xem tất cả <DoubleRightOutlined />
                       </Button>
                     </div>
                     <div className="railTrack">

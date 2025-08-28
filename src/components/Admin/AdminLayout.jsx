@@ -12,6 +12,7 @@ import {
 import AdminHeader from "./AdminHeader";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import AppFooter from "../Footer/Footer";
+import baomoi24h_logo from "./../../../public/baomoi24h_logo.png";
 
 const { Sider, Content } = Layout;
 const SCROLL_THRESHOLD = 80; // px
@@ -70,7 +71,7 @@ const AdminLayout = () => {
             fontSize: 18,
           }}
         >
-          Tin Tức Admin
+          <img src={baomoi24h_logo} alt="BAOMOI24H" />
         </div>
         <Menu
           theme="dark"

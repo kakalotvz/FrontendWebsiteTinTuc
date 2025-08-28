@@ -83,7 +83,11 @@
 }
 .burger {
   color: #fff;
-  font-size: 18px;
+  font-size: 25px;
+}
+.burger:hover {
+  color: #00ff4c;
+  font-size: 25px;
 }
 
 /* Nav row */

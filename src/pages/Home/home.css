@@ -250,11 +250,11 @@
   line-height: 1.1;
   font-size: clamp(20px, 2.6vw, 32px);
   letter-spacing: 0.3px;
-  background: linear-gradient(90deg, #7f00ff, #e100ff);
+  background: linear-gradient(90deg, #ff512f, #dd2476);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  text-shadow: 0 10px 28px rgba(127, 0, 255, 0.28);
+  text-shadow: 0 10px 28px rgba(255, 72, 0, 0.28);
 }
 .secHead h2::after {
   content: "";
@@ -263,8 +263,8 @@
   width: 72px;
   margin-top: 6px;
   border-radius: 999px;
-  background: linear-gradient(90deg, #7f00ff, #e100ff);
-  box-shadow: 0 10px 24px rgba(127, 0, 255, 0.25);
+  background: linear-gradient(90deg, #ff512f, #dd2476);
+  box-shadow: 0 10px 24px rgba(255, 72, 0, 0.25);
 }
 .secLine {
   flex: 1;
@@ -276,6 +276,7 @@
 .viewAll {
   color: #7f00ff !important;
   margin-left: auto;
+  font-size: 18px;
 }
 
 /* ===== Masonry (waterfall) ===== */
