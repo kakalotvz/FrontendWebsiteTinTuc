@@ -71,7 +71,17 @@ const AdminLayout = () => {
             fontSize: 18,
           }}
         >
-          <img src={baomoi24h_logo} alt="BAOMOI24H" />
+          <img
+            height={100}
+            style={{
+              objectFit: "contain",
+              cursor: "pointer",
+              display: "block",
+              margin: "20px auto",
+            }}
+            src={baomoi24h_logo}
+            alt="BAOMOI24H"
+          />
         </div>
         <Menu
           theme="dark"

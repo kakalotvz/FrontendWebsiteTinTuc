@@ -181,6 +181,13 @@ const HeaderApp = () => {
       >
         {/* Header của Drawer */}
         <img
+          height={200}
+          style={{
+            objectFit: "contain",
+            cursor: "pointer",
+            display: "block",
+            margin: "0 auto 12px",
+          }}
           onClick={() => {
             navigate("/");
             window.scrollTo({ top: 0, behavior: "smooth" });

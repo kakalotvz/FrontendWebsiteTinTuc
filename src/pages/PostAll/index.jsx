@@ -195,7 +195,8 @@ export default function PostAll() {
           </Text>
         </div>
         <div className="ph-right">
-          <span className="count-badge">{filtered.length}</span> bài viết
+          <span className="count-badge">{filtered.length}</span>{" "}
+          <span style={{ fontFamily: "Arial", fontSize: 18 }}>bài viết</span>
         </div>
       </div>
 
