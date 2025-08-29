@@ -375,6 +375,7 @@ import { apiFetchTongQuat } from "../../services/apiTongQuat";
 import { useNavigate } from "react-router-dom";
 import LikeHearts from "../TrangChiTiet/LikeHearts";
 import PageTitle from "../../components/PageTitle/PageTitle";
+import avt from "./../../../public/logo_app.png";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -589,7 +590,7 @@ export default function Home() {
                   </Paragraph>
                   <div className="metaRow">
                     <div className="mLeft">
-                      <Avatar size="small" src={lead?.nguoiTao?.avatar} />
+                      <Avatar size={30} src={lead?.nguoiTao?.avatar || avt} />
                       <span>{lead?.nguoiTao?.hoTen || "Tác giả"}</span>
                       <i className="dot" />
                       <span>{formatDate(lead?.ngayDang)}</span>

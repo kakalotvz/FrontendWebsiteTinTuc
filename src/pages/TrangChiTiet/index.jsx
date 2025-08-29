@@ -33,7 +33,7 @@ import { apiFetchTongQuat } from "../../services/apiTongQuat";
 import "./trangchitiet.css";
 import LikeHearts from "./LikeHearts";
 import PageTitle from "../../components/PageTitle/PageTitle";
-
+import avt from "./../../../public/logo_app.png";
 const { Title, Paragraph, Text } = Typography;
 
 const formatDate = (d) => {
@@ -446,13 +446,7 @@ export default function TrangChiTiet() {
 
                   {/* khung tác giả */}
                   <div className="author-box">
-                    <Avatar
-                      size={46}
-                      src={
-                        detail?.nguoiTao?.avatar ||
-                        "https://ktquiz.com/favicon-32x32-removebg-preview.png"
-                      }
-                    />
+                    <Avatar size={56} src={detail?.nguoiTao?.avatar || avt} />
                     <div className="author-meta">
                       <div className="author-name">
                         {detail?.nguoiTao?.hoTen ||

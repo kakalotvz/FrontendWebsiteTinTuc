@@ -16,7 +16,7 @@
   display: flex;
   flex-direction: column;
   background: linear-gradient(
-      180deg,
+      250deg,
       rgba(11, 18, 32, 0.55),
       rgba(11, 18, 32, 0) 30%
     ),
@@ -44,15 +44,20 @@
   align-items: center;
 }
 .brand-logo {
-  height: 50px;
+  /* height: 50px; */
   width: auto;
-  object-fit: contain;
+  /* object-fit: contain; */
   display: block;
-  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.25))
-    drop-shadow(0 0 1px rgba(255, 255, 255, 0.65));
-  transform: scale(3.35);
+  /* filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.25))
+    drop-shadow(0 0 1px rgba(255, 255, 255, 0.65)); */
+  transform: scale(2.55);
   transform-origin: center;
-  margin-left: 30px;
+  margin-left: 15px;
+  margin-top: 20px;
+}
+.brand-logo:hover {
+  transform: scale(2.8);
+  transition: transform 0.2s ease;
 }
 
 /* Search */
@@ -89,6 +94,12 @@
   color: #00ff4c;
   font-size: 25px;
 }
+.active_menu {
+  color: #00ff4c !important;
+}
+.active_menu_mobile {
+  color: #2600ff !important;
+}
 
 /* Nav row */
 .nav-wrap {
@@ -104,7 +115,7 @@
   font-size: 18px;
 }
 .nav-menu .ant-menu-item:hover {
-  color: #e8f7ff !important;
+  color: #00ff4c !important;
 }
 
 /* Cho phép tràn ngang */
@@ -143,7 +154,7 @@
   gap: 8px;
 }
 .drawer-head .brand-logo {
-  height: 36px;
+  height: 26px;
 }
 .drawer-search {
   margin-bottom: 12px;
@@ -171,10 +182,13 @@
 
 @media (max-width: 480px) {
   .header-inner {
-    padding: 10px 12px;
+    padding: 50px 15px;
   }
   .brand-logo {
-    height: 36px;
+    /* height: 26px; */
+    transform: scale(2.55);
+    margin-left: 50px;
+    margin-bottom: 20px;
   }
 }
 
@@ -291,3 +305,251 @@
     height: 40px;
   }
 }
+
+/* ========== Drawer ========== */
+/* ===== Drawer tổng ===== */
+.nav-drawer .ant-drawer-body {
+  padding: 0;
+  background: #0f1430; /* phối cùng #171D3E */
+  color: #e6ecff;
+}
+
+/* ===== Header Drawer ===== */
+.drawer-head {
+  background: radial-gradient(
+    120% 120% at 0% 0%,
+    #28306b 0%,
+    #171d3e 60%,
+    #111633 100%
+  );
+  padding: 20px 18px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.drawer-logo {
+  /* height: 84px; */
+  /* width: auto;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35); */
+  transform: scale(0.8);
+  width: auto;
+}
+.drawer-logo:hover {
+  transform: scale(0.9);
+  transition: transform 0.2s ease;
+}
+.drawer-tagline {
+  font-size: 12px;
+  color: #b8c1ff;
+  letter-spacing: 0.3px;
+}
+
+/* ===== Search sticky ===== */
+.drawer-search {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #0f1430;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.nav-drawer .ant-input-affix-wrapper {
+  background: #101738;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #e8edff;
+}
+.nav-drawer .ant-input-affix-wrapper input {
+  color: #e8edff;
+}
+.nav-drawer .ant-input-affix-wrapper:hover,
+.nav-drawer .ant-input-affix-wrapper-focused {
+  border-color: #22d3ee;
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.18);
+}
+
+/* ===== Quick links ===== */
+.drawer-quick {
+  display: flex;
+  gap: 8px;
+  padding: 12px 14px 0;
+  flex-wrap: wrap;
+}
+.quick-btn {
+  background: linear-gradient(135deg, #1fb6ff, #673ab7);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 8px 18px rgba(31, 182, 255, 0.25);
+}
+.quick-btn:hover {
+  filter: brightness(1.05);
+}
+
+/* ===== Divider ===== */
+.drawer-divider {
+  margin: 12px 14px;
+  color: #9fb4ff !important;
+}
+
+/* ===== List thể loại ===== */
+.drawer-list {
+  padding: 0 10px;
+  display: grid;
+  gap: 8px;
+}
+.drawer-item {
+  display: grid;
+  grid-template-columns: 42px 1fr 18px;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 10px;
+  color: #e8edff;
+  text-decoration: none;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.04),
+    rgba(255, 255, 255, 0.02)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease,
+    border-color 0.2s ease;
+}
+.drawer-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  border-color: rgba(34, 211, 238, 0.55);
+}
+.drawer-item.active {
+  background: linear-gradient(
+    90deg,
+    rgba(34, 211, 238, 0.18),
+    rgba(168, 85, 247, 0.18)
+  );
+  border-color: rgba(34, 211, 238, 0.8);
+  box-shadow: 0 12px 28px rgba(34, 211, 238, 0.25);
+}
+.di-index {
+  font-weight: 800;
+  color: #9bdcff;
+  letter-spacing: 0.5px;
+}
+.di-text {
+  font-weight: 600;
+  color: #eef3ff;
+}
+.di-arrow {
+  color: #a6b3ff;
+  font-size: 16px;
+}
+
+/* ===== Chips chủ đề ===== */
+.drawer-chips {
+  padding: 2px 12px 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.drawer-chips .chip {
+  display: inline-flex;
+  padding: 6px 10px;
+  font-size: 12px;
+  color: #dfe8ff;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.drawer-chips .chip:hover {
+  background: rgba(34, 211, 238, 0.2);
+  border-color: rgba(34, 211, 238, 0.5);
+  color: #fff;
+}
+.drawer-chips .chip.active {
+  background: linear-gradient(
+    90deg,
+    rgba(34, 211, 238, 0.25),
+    rgba(168, 85, 247, 0.25)
+  );
+  border-color: rgba(34, 211, 238, 0.8);
+  color: #fff;
+}
+
+/* ===== Footer Drawer ===== */
+.drawer-footer {
+  padding: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin-top: 8px;
+}
+.drawer-footer .df-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #8fa1ff;
+  font-size: 12px;
+}
+.drawer-footer a {
+  color: #cfe3ff;
+  text-decoration: none;
+}
+.drawer-footer a:hover {
+  color: #22d3ee;
+}
+.drawer-footer .dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #6c7bff;
+  display: inline-flex;
+}
+
+/* Tối ưu cuộn */
+.nav-drawer .ant-drawer-body {
+  -webkit-overflow-scrolling: touch;
+}
+/* Vỏ nút X */
+.nav-drawer .ant-drawer-close {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 1000;
+  z-index: 1000;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* background: linear-gradient(135deg, #22d3ee, #a855f7); */
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 10px 24px rgba(34, 211, 238, 0.25);
+  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.nav-drawer .ant-drawer-close:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+  box-shadow: 0 14px 32px rgba(34, 211, 238, 0.35);
+}
+
+/* Icon “X” bên trong */
+.nav-drawer .ant-drawer-close .anticon,
+.nav-drawer .ant-drawer-close svg {
+  font-size: 16px;
+  color: #fff; /* trắng cho nổi trên nền #171D3E */
+}
+
+/* Ẩn chữ “Close” nếu có */
+.nav-drawer .ant-drawer-close span:not(.anticon) {
+  display: none;
+}
+
+/* Header mặc định của Drawer (nếu dùng) */
+/* .nav-drawer .ant-drawer-header {
+  background: #171d3e;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+} */
