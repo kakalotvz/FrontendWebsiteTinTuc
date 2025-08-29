@@ -188,7 +188,7 @@ const HeaderApp = () => {
           }}
           className="drawer-logo"
           src={baomoi24h_logo}
-          alt="BAOMOI24G"
+          alt="DANTRI24H"
         />
 
         {/* Ô tìm kiếm sticky */}
@@ -312,7 +312,7 @@ const HeaderApp = () => {
         {/* Footer Drawer */}
         <div className="drawer-footer">
           <div className="df-line">
-            © {new Date().getFullYear()} BAOMOI24G.COM
+            © {new Date().getFullYear()} DANTRI24H.COM
           </div>
           {/* <div className="df-line">
             <a

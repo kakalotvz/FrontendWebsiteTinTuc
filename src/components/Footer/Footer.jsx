@@ -53,8 +53,8 @@ const FooterApp = () => {
             {/* Brand */}
             <div className="foot-col">
               <div className="foot-brand">
-                <span className="brand-badge">24g</span>
-                <span className="brand-text">BAOMOI24G</span>
+                <span className="brand-badge">24/7</span>
+                <span className="brand-text">DANTRI24H</span>
               </div>
               <p className="foot-text">
                 Bản tin nhanh – chính xác – giàu góc nhìn. Cập nhật 24/7.
@@ -157,7 +157,7 @@ const FooterApp = () => {
           {/* Bottom */}
           <div className="foot-bottom">
             <span>
-              © {new Date().getFullYear()} BAOMOI24G.COM - All rights reserved.
+              © {new Date().getFullYear()} DANTRI24H.COM - All rights reserved.
             </span>
             <span className="foot-bottom-links">
               <a href="#" onClick={(e) => openLink(e, "terms")}>
@@ -186,7 +186,7 @@ const FooterApp = () => {
         <div className="legal-content">
           <Title level={4}>1. Chấp nhận điều khoản</Title>
           <Paragraph style={{ color: "#cfe0ff" }}>
-            Khi truy cập và sử dụng BAOMOI24G.COM, bạn đồng ý tuân thủ các điều
+            Khi truy cập và sử dụng DANTRI24H.COM, bạn đồng ý tuân thủ các điều
             khoản sau đây.
           </Paragraph>
 
@@ -207,7 +207,7 @@ const FooterApp = () => {
 
           <Title level={4}>3. Nội dung & bản quyền</Title>
           <Paragraph style={{ color: "#cfe0ff" }}>
-            Tất cả bài viết, hình ảnh, đồ hoạ thuộc quyền sở hữu của BAOMOI24G
+            Tất cả bài viết, hình ảnh, đồ hoạ thuộc quyền sở hữu của DANTRI24H
             hoặc theo thoả thuận với tác giả/đối tác. Vui lòng ghi nguồn khi
             trích dẫn.
           </Paragraph>
@@ -215,7 +215,7 @@ const FooterApp = () => {
           <Title level={4}>4. Miễn trừ trách nhiệm</Title>
           <Paragraph style={{ color: "#cfe0ff" }}>
             Chúng tôi nỗ lực đảm bảo độ chính xác nhưng không cam kết tuyệt đối.
-            BAOMOI24G không chịu trách nhiệm đối với thiệt hại phát sinh từ việc
+            DANTRI24H không chịu trách nhiệm đối với thiệt hại phát sinh từ việc
             sử dụng thông tin trên trang.
           </Paragraph>
 
@@ -274,7 +274,7 @@ const FooterApp = () => {
 
           <Title level={4}>6. Liên hệ</Title>
           <Paragraph style={{ color: "#cfe0ff" }}>
-            Email: support@baomoi24g.com để gửi yêu cầu về dữ liệu cá nhân.
+            Email: support@DANTRI24H.com để gửi yêu cầu về dữ liệu cá nhân.
           </Paragraph>
         </div>
       </Modal>

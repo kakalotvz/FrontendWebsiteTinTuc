@@ -512,7 +512,7 @@ export default function Home() {
 
   return (
     <div className="home">
-      <PageTitle title="Tin tức mới nhất 24/7 hôm nay | BAOMOI24G" />
+      <PageTitle title="Tin tức mới nhất 24/7 hôm nay | DANTRI24H" />
 
       {/* ========= MAGAZINE STRIP ========= */}
       <section className="magWrap">

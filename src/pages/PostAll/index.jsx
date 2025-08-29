@@ -184,7 +184,7 @@ export default function PostAll() {
   return (
     <div className="postall">
       {/* Header section */}
-      <PageTitle title="Tất cả bài viết mới nhất trên BAOMOI24G: tin nóng, phân tích sâu và đa chủ đề (Thời sự, Thể thao, Giải trí, Công nghệ), cập nhật nhanh 24/7." />
+      <PageTitle title="Tất cả bài viết mới nhất trên DANTRI24H: tin nóng, phân tích sâu và đa chủ đề (Thời sự, Thể thao, Giải trí, Công nghệ), cập nhật nhanh 24/7." />
       <div className="page-head">
         <div className="ph-left">
           <Title level={2} className="ph-title">
