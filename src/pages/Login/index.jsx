@@ -209,7 +209,11 @@ const Login = () => {
               title="Bấm vào đây để vào trang quản lý (nếu đã đăng nhập mà chưa zô )"
               color="orange"
             >
-              <Button onClick={() => navigate("/admin")} block danger>
+              <Button
+                onClick={() => (window.location.href = "/admin")}
+                block
+                danger
+              >
                 Bấm vào đây để vào trang quản lý - Click vài lần nếu chưa vào
                 được
               </Button>
