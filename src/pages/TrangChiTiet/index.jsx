@@ -549,7 +549,7 @@ export default function TrangChiTiet() {
                     <Anchor
                       items={toc}
                       affix={false}
-                      getContainer={() => document.querySelector(".article")}
+                      getContainer={() => window}
                     />
                   </div>
                 ) : (
