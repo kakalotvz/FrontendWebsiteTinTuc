@@ -73,6 +73,8 @@ const Login = () => {
       const { accessToken, user, refreshToken, expiresInSeconds } =
         json.data || json;
 
+      console.log("accessToken: ", accessToken);
+
       handleLoginSuccess({
         accessToken,
         refreshToken,
@@ -87,8 +89,7 @@ const Login = () => {
         localStorage.removeItem("login_username");
         localStorage.setItem("login_remember", "false");
       }
-
-      message.success(`Xin chào, ${user?.hoTen || values.username}!`);
+      message.success(`Xin chào, ${user?.hoTen || values?.username}!`);
       // Điều hướng qua trang admin/home tuỳ bạn
       navigate("/admin");
     } catch (e) {
