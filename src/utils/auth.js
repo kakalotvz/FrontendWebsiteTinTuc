@@ -40,11 +40,11 @@ export function restoreSessionFromStorage() {
   return true;
 }
 
-export function handleLoginSuccess({
+export async function handleLoginSuccess({
   accessToken,
   refreshToken,
   remember = true,
-  expiresInSeconds, user
+  expiresInSeconds, 
 }) {
   // 1) Lưu token
   inMemoryAccessToken = accessToken;
@@ -63,6 +63,14 @@ export function handleLoginSuccess({
   // 3) Hẹn giờ auto refresh
   const exp = getJwtExp(accessToken, expiresInSeconds);
   if (exp) scheduleRefresh(accessToken);
+
+  // fetch user ngay sau login
+  let user = null;
+  try {
+    user = await instance.get("/auth/me").then(res => res.data);
+  } catch (e) {
+    console.error("Lấy user sau login thất bại:", e);
+  }
 
   // 4) Phát event
   window.dispatchEvent(
