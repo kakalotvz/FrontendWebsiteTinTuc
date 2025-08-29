@@ -10,6 +10,7 @@ import {
   Typography,
   Divider,
   message,
+  Tooltip,
 } from "antd";
 import {
   UserOutlined,
@@ -90,11 +91,7 @@ const Login = () => {
         localStorage.setItem("login_remember", "false");
       }
       message.success(`Xin chào, ${user?.hoTen || values?.username}!`);
-      // Điều hướng qua trang admin/home tuỳ bạn
-      //   navigate("/admin");
-      setTimeout(() => {
-        navigate("/admin");
-      }, 200);
+      navigate("/admin");
     } catch (e) {
       message.error(e.message || "Đăng nhập thất bại!");
     } finally {
@@ -208,6 +205,15 @@ const Login = () => {
             </Form>
 
             <Divider />
+            <Tooltip
+              title="Bấm vào đây để vào trang quản lý (nếu đã đăng nhập mà chưa zô )"
+              color="orange"
+            >
+              <Button onClick={() => navigate("/admin")} block danger>
+                Bấm vào đây để vào trang quản lý - Click vài lần nếu chưa vào
+                được
+              </Button>
+            </Tooltip>
 
             {/* <Button onClick={testMe} block>
               Thử gọi /auth/me
