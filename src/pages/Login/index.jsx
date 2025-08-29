@@ -90,7 +90,7 @@ const Login = () => {
 
       message.success(`Xin chào, ${user?.hoTen || values.username}!`);
       // Điều hướng qua trang admin/home tuỳ bạn
-      navigate("/admin");
+      window.location.href = "/admin";
     } catch (e) {
       message.error(e.message || "Đăng nhập thất bại!");
     } finally {
