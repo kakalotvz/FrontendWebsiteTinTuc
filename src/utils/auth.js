@@ -44,7 +44,7 @@ export function handleLoginSuccess({
   accessToken,
   refreshToken,
   remember = true,
-  expiresInSeconds
+  expiresInSeconds, user
 }) {
   // 1) Lưu token
   inMemoryAccessToken = accessToken;
@@ -66,7 +66,7 @@ export function handleLoginSuccess({
 
   // 4) Phát event
   window.dispatchEvent(
-    new CustomEvent("auth:login", { detail: { accessToken } })
+    new CustomEvent("auth:login", { detail: { accessToken, user } })
   );
 }
 
