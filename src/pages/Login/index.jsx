@@ -205,19 +205,22 @@ const Login = () => {
             </Form>
 
             <Divider />
-            <Tooltip
-              title="Bấm vào đây để vào trang quản lý (nếu đã đăng nhập mà chưa zô )"
-              color="orange"
-            >
-              <Button
-                onClick={() => (window.location.href = "/admin")}
-                block
-                danger
-              >
-                Bấm vào đây để vào trang quản lý - Click vài lần nếu chưa vào
-                được
-              </Button>
-            </Tooltip>
+            <Row>
+              <Col md={24} sm={24} style={{ textAlign: "center" }}>
+                <Tooltip
+                  title="Bấm vào đây để vào trang quản lý (nếu đã đăng nhập mà chưa zô )"
+                  color="orange"
+                >
+                  <a
+                    onClick={() => (window.location.href = "/admin")}
+                    style={{ color: "#ff4d4f" }}
+                  >
+                    Bấm vào đây để vào trang quản lý - Click vài lần nếu chưa
+                    vào được
+                  </a>
+                </Tooltip>
+              </Col>
+            </Row>
 
             {/* <Button onClick={testMe} block>
               Thử gọi /auth/me
