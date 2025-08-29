@@ -78,7 +78,6 @@ const Login = () => {
         refreshToken,
         expiresInSeconds,
         remember: values.remember, // ✅ check ở đây
-        user,
       });
 
       if (values.remember) {
@@ -91,7 +90,7 @@ const Login = () => {
 
       message.success(`Xin chào, ${user?.hoTen || values.username}!`);
       // Điều hướng qua trang admin/home tuỳ bạn
-      window.location.href = "/admin";
+      navigate("/admin");
     } catch (e) {
       message.error(e.message || "Đăng nhập thất bại!");
     } finally {
