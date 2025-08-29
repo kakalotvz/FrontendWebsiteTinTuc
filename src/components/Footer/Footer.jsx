@@ -167,6 +167,10 @@ const FooterApp = () => {
               <a href="#" onClick={(e) => openLink(e, "privacy")}>
                 Bảo mật
               </a>
+              <span className="dot" />
+              <a href="#" onClick={() => navigate("/dang-nhap-quan-ly")}>
+                Đăng tin tức
+              </a>
             </span>
           </div>
         </div>

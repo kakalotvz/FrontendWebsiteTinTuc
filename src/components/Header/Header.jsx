@@ -255,6 +255,18 @@ const HeaderApp = () => {
           >
             Tất cả bài viết
           </Button>
+          <Button
+            size="middle"
+            type="#"
+            className="quick-btn"
+            onClick={() => {
+              navigate("/dang-nhap-quan-ly");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+              setOpen(false);
+            }}
+          >
+            Đăng tin tức
+          </Button>
         </div>
 
         <Divider className="drawer-divider">Danh mục</Divider>
