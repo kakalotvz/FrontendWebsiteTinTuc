@@ -38,7 +38,18 @@ export function AuthMeProvider({ children }) {
 
   // tự cập nhật khi app login/logout (sự kiện bạn đã phát trong handleLoginSuccess / logout)
   useEffect(() => {
-    const onLogin = () => refetch();
+    // const onLogin = () => refetch();
+    const onLogin = (e) => {
+      // nếu handleLoginSuccess đã bắn kèm user thì dùng luôn
+      console.log("AuthMeProvider onLogin", e);
+
+      if (e.detail?.user) {
+        setMe(e.detail.user);
+      } else {
+        // fallback: vẫn gọi /auth/me nếu không có user
+        refetch();
+      }
+    };
     const onLogout = () => setMe(null);
     window.addEventListener("auth:login", onLogin);
     window.addEventListener("auth:logout", onLogout);
