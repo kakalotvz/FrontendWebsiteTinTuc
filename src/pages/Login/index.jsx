@@ -113,7 +113,25 @@ const Login = () => {
       <div className="login-bg" />
       <Row justify="center" align="middle" className="login-row">
         <Col xs={22} sm={20} md={16} lg={10} xl={8}>
-          <Card className="login-card" bordered={false}>
+          <Card
+            className="login-card"
+            bordered={false}
+            // title={
+            //   <div className="brand">
+            //     <img
+            //       src="https://cdn.jsdelivr.net/gh/twitter/twemoji/assets/svg/1f393.svg"
+            //       alt="logo"
+            //       style={{ width: 32, height: 32, marginRight: 8 }}
+            //     />
+            //     <div>
+            //       <Title level={3} style={{ marginBottom: 0 }}>
+            //         Admin
+            //       </Title>
+            //       <Text type="secondary">Đăng nhập để đăng tin tức</Text>
+            //     </div>
+            //   </div>
+            // }
+          >
             <div className="brand">
               <img
                 src="https://cdn.jsdelivr.net/gh/twitter/twemoji/assets/svg/1f393.svg"
@@ -123,7 +141,7 @@ const Login = () => {
                 <Title level={3} style={{ marginBottom: 0 }}>
                   Admin
                 </Title>
-                <Text type="secondary">Đăng nhập để tiếp tục</Text>
+                <Text type="secondary">Đăng nhập để đăng tin tức</Text>
               </div>
             </div>
 
@@ -187,9 +205,9 @@ const Login = () => {
 
             <Divider />
 
-            <Button onClick={testMe} block>
+            {/* <Button onClick={testMe} block>
               Thử gọi /auth/me
-            </Button>
+            </Button> */}
           </Card>
         </Col>
       </Row>
