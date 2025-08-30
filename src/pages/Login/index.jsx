@@ -34,18 +34,18 @@ const Login = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
 
-  useEffect(() => {
-    restoreSessionFromStorage();
+  //   useEffect(() => {
+  //     restoreSessionFromStorage();
 
-    const savedUser = localStorage.getItem("login_username");
-    const savedRemember = localStorage.getItem("login_remember") === "true";
+  //     const savedUser = localStorage.getItem("login_username");
+  //     const savedRemember = localStorage.getItem("login_remember") === "true";
 
-    form.setFieldsValue({
-      username: savedUser || "",
-      remember: savedRemember,
-      password: "", // luôn reset password cho an toàn
-    });
-  }, [form]);
+  //     form.setFieldsValue({
+  //       username: savedUser || "",
+  //       remember: savedRemember,
+  //       password: "", // luôn reset password cho an toàn
+  //     });
+  //   }, [form]);
 
   useEffect(() => {
     restoreSessionFromStorage();
@@ -80,17 +80,17 @@ const Login = () => {
         accessToken,
         refreshToken,
         expiresInSeconds,
-        remember: values.remember, // ✅ check ở đây
+        // remember: values.remember, // ✅ check ở đây
         hasRefreshCookie: true,
       });
 
-      if (values.remember) {
-        localStorage.setItem("login_username", values.username);
-        localStorage.setItem("login_remember", "true");
-      } else {
-        localStorage.removeItem("login_username");
-        localStorage.setItem("login_remember", "false");
-      }
+      //   if (values.remember) {
+      //     localStorage.setItem("login_username", values.username);
+      //     localStorage.setItem("login_remember", "true");
+      //   } else {
+      //     localStorage.removeItem("login_username");
+      //     localStorage.setItem("login_remember", "false");
+      //   }
       message.success(`Xin chào, ${user?.hoTen || values?.username}!`);
       navigate("/admin");
     } catch (e) {
