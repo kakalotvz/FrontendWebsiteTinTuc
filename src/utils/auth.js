@@ -50,8 +50,8 @@ export async function handleLoginSuccess({
 }) {
   inMemoryAccessToken = accessToken;
 
+  localStorage.setItem(ACCESS_KEY, accessToken);
   if (remember) {
-    localStorage.setItem(ACCESS_KEY, accessToken);
     if (refreshToken) localStorage.setItem(REFRESH_KEY, refreshToken);
     // 👇 Bật cờ nếu có refreshToken HOẶC biết server đã set cookie
     if (refreshToken || hasRefreshCookie) {
