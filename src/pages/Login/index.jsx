@@ -208,16 +208,9 @@ const Login = () => {
             <Divider />
             <Row>
               <Col md={24} sm={24} style={{ textAlign: "center" }}>
-                <Tooltip
-                  title="Bấm vào đây để vào trang quản lý (nếu đã đăng nhập mà chưa zô )"
-                  color="orange"
-                >
-                  <a
-                    onClick={() => (window.location.href = "/admin")}
-                    style={{ color: "#ff4d4f" }}
-                  >
-                    Bấm vào đây để vào trang quản lý - Click vài lần nếu chưa
-                    vào được
+                <Tooltip title="Trở lại trang chủ" color="orange">
+                  <a onClick={() => navigate("/")} style={{ color: "#ff4d4f" }}>
+                    Trở về trang chủ
                   </a>
                 </Tooltip>
               </Col>
