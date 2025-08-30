@@ -74,8 +74,6 @@ const Login = () => {
       const { accessToken, user, refreshToken, expiresInSeconds } =
         json.data || json;
 
-      console.log("accessToken: ", accessToken);
-
       handleLoginSuccess({
         accessToken,
         refreshToken,
@@ -184,14 +182,14 @@ const Login = () => {
                 />
               </Form.Item>
 
-              <Row justify="space-between" align="middle">
+              {/* <Row justify="space-between" align="middle">
                 <Col>
                   <Form.Item name="remember" valuePropName="checked" noStyle>
                     <Checkbox>Nhớ đăng nhập</Checkbox>
                   </Form.Item>
                 </Col>
-              </Row>
-              <br />
+              </Row> */}
+              {/* <br /> */}
 
               <Button
                 type="primary"
