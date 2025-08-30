@@ -81,6 +81,7 @@ const Login = () => {
         refreshToken,
         expiresInSeconds,
         remember: values.remember, // ✅ check ở đây
+        hasRefreshCookie: true,
       });
 
       if (values.remember) {

@@ -18,12 +18,16 @@ export function AuthMeProvider({ children }) {
 
   const refetch = useCallback(async () => {
     try {
-      //   const hasToken = !!getAccessToken();
-      //   const hasRefresh = !!localStorage.getItem("has_refresh");
-      //   if (!hasToken && !hasRefresh) return; // 👈 KHÔNG gọi /auth/me
-
       setLoading(true);
       setErr(null);
+
+      // 👉 Chỉ gọi khi đã có accessToken (đã login)
+      const hasToken =
+        !!getAccessToken() || !!localStorage.getItem("access_token");
+      if (!hasToken) {
+        setMe(null);
+        return null; // KHÔNG gọi /auth/me
+      }
 
       const data = await apiFetch("/auth/me", { method: "GET" });
       setMe(data || null);
@@ -37,24 +41,14 @@ export function AuthMeProvider({ children }) {
     }
   }, []);
 
-  // fetch lần đầu
   useEffect(() => {
     refetch();
   }, [refetch]);
 
-  // tự cập nhật khi app login/logout (sự kiện bạn đã phát trong handleLoginSuccess / logout)
   useEffect(() => {
-    // const onLogin = () => refetch();
     const onLogin = (e) => {
-      // nếu handleLoginSuccess đã bắn kèm user thì dùng luôn
-      console.log("AuthMeProvider onLogin", e);
-
-      if (e.detail?.user) {
-        setMe(e.detail.user);
-      } else {
-        // fallback: vẫn gọi /auth/me nếu không có user
-        refetch();
-      }
+      if (e.detail?.user) setMe(e.detail.user);
+      else refetch();
     };
     const onLogout = () => setMe(null);
     window.addEventListener("auth:login", onLogin);

@@ -1,20 +1,19 @@
+// utils/auth.js
 import instance from "./axios-customize";
 
-// auth.js
 const BASE_URL = import.meta.env.VITE_BACKEND_URL?.replace(/\/$/, "") || "";
 const ACCESS_KEY = "access_token";
-const REFRESH_KEY = "refresh_token"; // nếu backend trả về
-const HAS_REFRESH_KEY = "has_refresh"; // 👈 cờ cho client biết có thể refresh
+const REFRESH_KEY = "refresh_token";
+const HAS_REFRESH_KEY = "has_refresh";
 
 let inMemoryAccessToken = null;
 let refreshTimer = null;
 
-// ==== util ====
 function getJwtExp(token, fallbackSec) {
   try {
     if (!token) return null;
     const payload = JSON.parse(atob(token.split(".")[1]));
-    return typeof payload.exp === "number" ? payload.exp : null; // seconds
+    return typeof payload.exp === "number" ? payload.exp : null;
   } catch {
     return fallbackSec ? Math.floor(Date.now() / 1000) + fallbackSec : null;
   }
@@ -22,14 +21,13 @@ function getJwtExp(token, fallbackSec) {
 function scheduleRefresh(token) {
   const exp = getJwtExp(token);
   if (!exp) return;
-  const msUntilRefresh = exp * 1000 - Date.now() - 30_000; // refresh sớm 30s
+  const msUntilRefresh = exp * 1000 - Date.now() - 30_000;
   if (refreshTimer) window.clearTimeout(refreshTimer);
   if (msUntilRefresh > 0) {
     refreshTimer = window.setTimeout(refreshAccessToken, msUntilRefresh);
   }
 }
 
-// ==== public helpers ====
 export function getAccessToken() {
   return inMemoryAccessToken;
 }
@@ -38,6 +36,7 @@ export function restoreSessionFromStorage() {
   const token = localStorage.getItem(ACCESS_KEY);
   if (!token) return false;
   inMemoryAccessToken = token;
+  instance.defaults.headers.common.Authorization = `Bearer ${token}`; // 👈 giữ header khi F5
   scheduleRefresh(token);
   return true;
 }
@@ -46,70 +45,62 @@ export async function handleLoginSuccess({
   accessToken,
   refreshToken,
   remember = true,
-  expiresInSeconds, 
+  expiresInSeconds,
+  hasRefreshCookie = false, // set true khi login thành công (server set cookie)
 }) {
-  // 1) Lưu token
   inMemoryAccessToken = accessToken;
 
   if (remember) {
     localStorage.setItem(ACCESS_KEY, accessToken);
-    if (refreshToken) {
-      localStorage.setItem(REFRESH_KEY, refreshToken);
-      localStorage.setItem(HAS_REFRESH_KEY, "1");      // 👈 bật cờ
+    if (refreshToken) localStorage.setItem(REFRESH_KEY, refreshToken);
+    // 👇 Bật cờ nếu có refreshToken HOẶC biết server đã set cookie
+    if (refreshToken || hasRefreshCookie) {
+      localStorage.setItem(HAS_REFRESH_KEY, "1");
+    } else {
+      localStorage.removeItem(HAS_REFRESH_KEY);
     }
   } else {
     localStorage.removeItem(ACCESS_KEY);
     localStorage.removeItem(REFRESH_KEY);
-    localStorage.removeItem(HAS_REFRESH_KEY);         // 👈 xoá cờ
+    localStorage.removeItem(HAS_REFRESH_KEY);
   }
 
-  // 2) Set header mặc định
   instance.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 
-  // 3) Hẹn giờ auto refresh
   const exp = getJwtExp(accessToken, expiresInSeconds);
   if (exp) scheduleRefresh(accessToken);
 
-  // fetch user ngay sau login
-  let user = null;
   try {
-    user = await instance.get("/auth/me").then(res => res.data);
-  } catch (e) {
-    console.error("Lấy user sau login thất bại:", e);
+    const user = await instance.get("/auth/me").then((r) => r.data);
+    window.dispatchEvent(new CustomEvent("auth:login", { detail: { accessToken, user } }));
+  } catch {
+    window.dispatchEvent(new CustomEvent("auth:login", { detail: { accessToken } }));
   }
-
-  // 4) Phát event
-  window.dispatchEvent(
-    new CustomEvent("auth:login", { detail: { accessToken, user } })
-  );
 }
-
 
 export function logout() {
-    inMemoryAccessToken = null;
-    if (refreshTimer) window.clearTimeout(refreshTimer);
-    localStorage.removeItem(ACCESS_KEY);
-    localStorage.removeItem(REFRESH_KEY);
-    localStorage.removeItem(HAS_REFRESH_KEY); // 👈 xoá cờ
-    window.dispatchEvent(new Event("auth:logout"));
+  inMemoryAccessToken = null;
+  if (refreshTimer) window.clearTimeout(refreshTimer);
+  localStorage.removeItem(ACCESS_KEY);
+  localStorage.removeItem(REFRESH_KEY);
+  localStorage.removeItem(HAS_REFRESH_KEY);
+  delete instance.defaults.headers.common.Authorization; // 👈 remove header
+  window.dispatchEvent(new Event("auth:logout"));
 }
 
-// ==== Refresh queue (tránh gọi refresh nhiều lần) ====
+// ===== Refresh queue =====
 let isRefreshing = false;
 let refreshWaiters = [];
-
 function notifyWaiters(ok) {
   refreshWaiters.forEach((resolve) => resolve(ok));
   refreshWaiters = [];
 }
 
-// Gọi refresh token tới /auth/refresh (cookie httpOnly sẽ tự gửi kèm)
 export async function refreshAccessToken() {
-    // ❗ Không có cờ thì bỏ qua để tránh spam 401
-//   if (!localStorage.getItem(HAS_REFRESH_KEY)) return false;
+  // ❗ KHÔNG có cờ -> KHÔNG gọi refresh (tránh lỗi và spam)
+  if (!localStorage.getItem(HAS_REFRESH_KEY)) return false;
 
   if (isRefreshing) {
-    // chờ lần refresh đang chạy
     return new Promise((resolve) => refreshWaiters.push(resolve));
   }
   isRefreshing = true;
@@ -117,31 +108,32 @@ export async function refreshAccessToken() {
     const res = await fetch(`${BASE_URL}/auth/refresh`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      credentials: "include", // gửi cookie refresh
+      credentials: "include", // gửi cookie httpOnly
     });
     if (!res.ok) throw new Error("refresh failed");
-    const data = await res.json(); // { success, data: { accessToken } }
-    console.log("data: ",data);
-    
+    const data = await res.json();
+
     const accessToken = data?.data?.accessToken || data?.accessToken;
     const refreshToken = data?.refreshToken;
     if (!accessToken) throw new Error("no accessToken");
 
-    handleLoginSuccess({ accessToken, refreshToken });
+    // giữ cờ sau refresh OK
+    localStorage.setItem(HAS_REFRESH_KEY, "1");
+    await handleLoginSuccess({ accessToken, refreshToken, hasRefreshCookie: true });
+
     isRefreshing = false;
     notifyWaiters(true);
     return true;
   } catch (e) {
     isRefreshing = false;
     notifyWaiters(false);
-    // refresh fail → xoá cờ để lần sau khỏi thử nữa
+    // refresh fail → xoá cờ để không thử lại nữa
     localStorage.removeItem(HAS_REFRESH_KEY);
+    delete instance.defaults.headers.common.Authorization;
     return false;
   }
 }
 
 export function isAuthenticated() {
-  return !!localStorage.getItem("access_token"); 
-  // hoặc kiểm tra inMemoryAccessToken
+  return !!localStorage.getItem(ACCESS_KEY);
 }
-
