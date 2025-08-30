@@ -7,6 +7,7 @@ import React, {
   useCallback,
 } from "react";
 import { apiFetch } from "../services/apiFetch";
+import { getAccessToken } from "../utils/auth";
 
 const Ctx = createContext(null);
 
@@ -17,9 +18,9 @@ export function AuthMeProvider({ children }) {
 
   const refetch = useCallback(async () => {
     try {
-      //   const hasToken = !!getAccessToken();
-      //   const hasRefresh = !!localStorage.getItem("has_refresh");
-      //   if (!hasToken && !hasRefresh) return; // 👈 KHÔNG gọi /auth/me
+      const hasToken = !!getAccessToken();
+      const hasRefresh = !!localStorage.getItem("has_refresh");
+      if (!hasToken && !hasRefresh) return; // 👈 KHÔNG gọi /auth/me
 
       setLoading(true);
       setErr(null);
