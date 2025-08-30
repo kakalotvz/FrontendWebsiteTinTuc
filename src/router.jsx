@@ -95,7 +95,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/dang-nhap-quan-ly",
-    element: <PublicRoute />, // bọc bằng PublicRoute để ngăn chặn khi đã login thì không thể về trang login
+    // element: <PublicRoute />, // bọc bằng PublicRoute để ngăn chặn khi đã login thì không thể về trang login
     children: [
       {
         index: true,
