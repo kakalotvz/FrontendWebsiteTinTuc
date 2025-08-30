@@ -4,6 +4,8 @@ import instance from "./axios-customize";
 const BASE_URL = import.meta.env.VITE_BACKEND_URL?.replace(/\/$/, "") || "";
 const ACCESS_KEY = "access_token";
 const REFRESH_KEY = "refresh_token"; // nếu backend trả về
+const HAS_REFRESH_KEY = "has_refresh"; // 👈 cờ cho client biết có thể refresh
+
 let inMemoryAccessToken = null;
 let refreshTimer = null;
 
@@ -51,10 +53,14 @@ export async function handleLoginSuccess({
 
   if (remember) {
     localStorage.setItem(ACCESS_KEY, accessToken);
-    if (refreshToken) localStorage.setItem(REFRESH_KEY, refreshToken);
+    if (refreshToken) {
+      localStorage.setItem(REFRESH_KEY, refreshToken);
+      localStorage.setItem(HAS_REFRESH_KEY, "1");      // 👈 bật cờ
+    }
   } else {
     localStorage.removeItem(ACCESS_KEY);
     localStorage.removeItem(REFRESH_KEY);
+    localStorage.removeItem(HAS_REFRESH_KEY);         // 👈 xoá cờ
   }
 
   // 2) Set header mặc định
@@ -80,11 +86,12 @@ export async function handleLoginSuccess({
 
 
 export function logout() {
-  inMemoryAccessToken = null;
-  if (refreshTimer) window.clearTimeout(refreshTimer);
-  localStorage.removeItem(ACCESS_KEY);
-  localStorage.removeItem(REFRESH_KEY);
-  window.dispatchEvent(new Event("auth:logout"));
+    inMemoryAccessToken = null;
+    if (refreshTimer) window.clearTimeout(refreshTimer);
+    localStorage.removeItem(ACCESS_KEY);
+    localStorage.removeItem(REFRESH_KEY);
+    localStorage.removeItem(HAS_REFRESH_KEY); // 👈 xoá cờ
+    window.dispatchEvent(new Event("auth:logout"));
 }
 
 // ==== Refresh queue (tránh gọi refresh nhiều lần) ====
@@ -98,6 +105,9 @@ function notifyWaiters(ok) {
 
 // Gọi refresh token tới /auth/refresh (cookie httpOnly sẽ tự gửi kèm)
 export async function refreshAccessToken() {
+    // ❗ Không có cờ thì bỏ qua để tránh spam 401
+  if (!localStorage.getItem(HAS_REFRESH_KEY)) return false;
+
   if (isRefreshing) {
     // chờ lần refresh đang chạy
     return new Promise((resolve) => refreshWaiters.push(resolve));
@@ -124,6 +134,8 @@ export async function refreshAccessToken() {
   } catch (e) {
     isRefreshing = false;
     notifyWaiters(false);
+    // refresh fail → xoá cờ để lần sau khỏi thử nữa
+    localStorage.removeItem(HAS_REFRESH_KEY);
     return false;
   }
 }
