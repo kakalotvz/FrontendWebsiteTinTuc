@@ -106,7 +106,7 @@ function notifyWaiters(ok) {
 // Gọi refresh token tới /auth/refresh (cookie httpOnly sẽ tự gửi kèm)
 export async function refreshAccessToken() {
     // ❗ Không có cờ thì bỏ qua để tránh spam 401
-  if (!localStorage.getItem(HAS_REFRESH_KEY)) return false;
+//   if (!localStorage.getItem(HAS_REFRESH_KEY)) return false;
 
   if (isRefreshing) {
     // chờ lần refresh đang chạy
