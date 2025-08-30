@@ -209,7 +209,17 @@ const Login = () => {
             <Row>
               <Col md={24} sm={24} style={{ textAlign: "center" }}>
                 <Tooltip title="Trở lại trang chủ" color="orange">
-                  <a onClick={() => navigate("/")} style={{ color: "#ff4d4f" }}>
+                  <a
+                    onClick={() => {
+                      navigate("/");
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    style={{
+                      color: "#ff4d4f",
+                      fontSize: 16,
+                      fontWeight: "bold",
+                    }}
+                  >
                     Trở về trang chủ
                   </a>
                 </Tooltip>
