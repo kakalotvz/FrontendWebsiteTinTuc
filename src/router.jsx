@@ -23,6 +23,7 @@ import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import "./layout.css";
 import PostAll from "./pages/PostAll";
 import DownloadVideo from "./pages/DownloadVideoTikTok.jsx";
+import ChinhSach from "./pages/ChinhSachBaoMat/ChinhSach.jsx";
 
 const SCROLL_THRESHOLD = 80; // px
 
@@ -95,6 +96,10 @@ const router = createBrowserRouter([
       {
         path: "download-video-tiktok",
         element: <DownloadVideo />,
+      },
+      {
+        path: "privacy",
+        element: <ChinhSach />,
       },
     ],
   },
