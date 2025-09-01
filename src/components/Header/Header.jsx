@@ -267,6 +267,18 @@ const HeaderApp = () => {
           >
             Đăng tin tức
           </Button>
+          <Button
+            size="middle"
+            type="#"
+            className="quick-btn"
+            onClick={() => {
+              navigate("/download-video-tiktok");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+              setOpen(false);
+            }}
+          >
+            Tool download TikTok
+          </Button>
         </div>
 
         <Divider className="drawer-divider">Danh mục</Divider>

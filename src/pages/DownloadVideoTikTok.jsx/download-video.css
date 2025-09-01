@@ -1,0 +1,194 @@
+.dv-wrap {
+  --bg1: #0f0f14;
+  --bg2: #1b1b26;
+  --grad: linear-gradient(135deg, #7f00ff, #00d4ff);
+  --card: #11141a;
+  --text-sub: #a6adbb;
+}
+
+.dv-hero {
+  background: radial-gradient(
+      1200px 400px at 20% -10%,
+      rgba(127, 0, 255, 0.45),
+      transparent
+    ),
+    radial-gradient(
+      1000px 360px at 80% 0%,
+      rgba(0, 212, 255, 0.35),
+      transparent
+    ),
+    linear-gradient(180deg, var(--bg1), var(--bg2));
+  padding: 56px 16px 36px;
+  color: #fff;
+}
+
+.dv-hero-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.dv-title {
+  color: #fff !important;
+  margin: 0;
+  letter-spacing: 0.3px;
+}
+.dv-title span {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 800;
+}
+
+.dv-sub {
+  margin: 6px 0 0;
+  color: var(--text-sub);
+}
+
+.dv-input-row {
+  margin-top: 18px;
+}
+
+.dv-supported {
+  margin-top: 10px;
+  color: #c9d1d9;
+  font-size: 13px;
+}
+
+.dv-container {
+  max-width: 1120px;
+  margin: 20px auto 48px;
+  padding: 0 16px;
+}
+
+.dv-card {
+  background: #0f1220;
+  border: 1px solid #1c2338 !important;
+  border-radius: 14px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  color: #e8eaed;
+}
+
+.dv-results {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 16px;
+}
+@media (max-width: 768px) {
+  .dv-results {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dv-thumb {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.dv-downloads .dv-download-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border: 1px dashed #2a3458;
+  border-radius: 12px;
+  background: rgba(22, 27, 51, 0.55);
+}
+
+.dv-section {
+  margin-top: 12px;
+}
+
+/* Features */
+.dv-feature {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+.dv-feature-ic {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: var(--grad);
+  box-shadow: 0 6px 18px rgba(127, 0, 255, 0.35);
+}
+.dv-feature-title {
+  font-weight: 600;
+  color: #fff;
+}
+.dv-feature-desc {
+  color: var(--text-sub);
+  font-size: 13px;
+}
+
+/* Ant overrides (small) */
+.dv-card .ant-card-head-title {
+  color: #fff;
+}
+.dv-card .ant-steps-item-title {
+  color: #eaeef6;
+}
+.dv-card .ant-steps-item-description {
+  color: #9aa3b2;
+}
+
+/* ---- Fix text tối trong Steps & Collapse (Antd) ---- */
+
+/* Steps title/desc */
+.dv-card .ant-steps-item-title,
+.dv-card .ant-steps-item-description {
+  color: #e6ebf7 !important;
+}
+
+/* Trạng thái wait cũng sáng hơn */
+.dv-card .ant-steps-item-wait .ant-steps-item-title,
+.dv-card .ant-steps-item-wait .ant-steps-item-description {
+  color: #c8d1e6 !important;
+}
+
+/* Số trong vòng tròn & viền bước */
+.dv-card .ant-steps-item-icon {
+  background: #161c2d !important;
+  border-color: #3a4b7a !important;
+}
+.dv-card .ant-steps-icon,
+.dv-card .ant-steps-item-icon .ant-steps-icon {
+  color: #ffffff !important;
+}
+/* Đường kẻ giữa các bước */
+.dv-card .ant-steps-item-tail::after {
+  background-color: #2a3458 !important;
+}
+
+/* Collapse header + icon */
+.dv-card .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+  color: #e6ebf7 !important;
+}
+.dv-card .ant-collapse-expand-icon,
+.dv-card .ant-collapse-arrow {
+  color: #9fb4ff !important;
+}
+
+/* Nền & viền của Collapse để hợp với card tối */
+.dv-card .ant-collapse,
+.dv-card .ant-collapse-content {
+  background: #0f1220 !important;
+  border-color: #1c2338 !important;
+}
+.dv-card .ant-collapse-content > .ant-collapse-content-box {
+  color: #c8d1e6 !important;
+}
+
+/* Bất kỳ text “mặc định” nào trong card cũng sáng hơn một chút */
+.dv-card,
+.dv-card p,
+.dv-card li,
+.dv-card .ant-typography {
+  color: #e6eaef;
+}

@@ -22,6 +22,7 @@ import { FloatButton, Tooltip } from "antd";
 import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import "./layout.css";
 import PostAll from "./pages/PostAll";
+import DownloadVideo from "./pages/DownloadVideoTikTok.jsx";
 
 const SCROLL_THRESHOLD = 80; // px
 
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
       {
         path: "tat-ca-bai-viet",
         element: <PostAll />,
+      },
+      {
+        path: "download-video-tiktok",
+        element: <DownloadVideo />,
       },
     ],
   },
