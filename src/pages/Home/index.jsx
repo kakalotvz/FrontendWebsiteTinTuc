@@ -376,6 +376,7 @@ import { useNavigate } from "react-router-dom";
 import LikeHearts from "../TrangChiTiet/LikeHearts";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import avt from "./../../../public/logo_app.png";
+import slugify from "slugify";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -413,8 +414,14 @@ export default function Home() {
     }
   };
 
-  const onClickDetailPost = (id) => {
-    navigate(`/chi-tiet-bai-viet?id=${id}`);
+  const onClickDetailPost = (post) => {
+    const slug = slugify(post.title, { lower: true, locale: "vi" });
+    const category = slugify(post.theLoai.ten, {
+      lower: true,
+      locale: "vi",
+    });
+    navigate(`/chi-tiet-bai-viet/${category}/${slug}-${post?._id}`);
+    // navigate(`/chi-tiet-bai-viet?id=${id}`);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -549,7 +556,7 @@ export default function Home() {
             {lead ? (
               <a
                 className="leadCard"
-                // onClick={() => onClickDetailPost(lead?._id)}
+                // onClick={() => onClickDetailPost(lead)}
                 style={{
                   backgroundImage: `url(${lead?.anhBia})`,
                   cursor: "pointer",
@@ -570,7 +577,7 @@ export default function Home() {
 
                   <h1
                     className="leadTitle"
-                    onClick={() => onClickDetailPost(lead?._id)}
+                    onClick={() => onClickDetailPost(lead)}
                   >
                     {lead?.title}
                   </h1>
@@ -582,7 +589,7 @@ export default function Home() {
                     {lead?.moTaNgan && (
                       <p
                         className="leadDesc"
-                        onClick={() => onClickDetailPost(lead?._id)}
+                        onClick={() => onClickDetailPost(lead)}
                       >
                         {lead?.moTaNgan}
                       </p>
@@ -631,7 +638,7 @@ export default function Home() {
               <a
                 key={m._id}
                 className="miniCard"
-                onClick={() => onClickDetailPost(m?._id)}
+                onClick={() => onClickDetailPost(m)}
                 style={{ cursor: "pointer" }}
               >
                 <div className="miniInfo">
@@ -764,7 +771,7 @@ export default function Home() {
                       {big ? (
                         <a
                           className="fiveBig"
-                          onClick={() => onClickDetailPost(big?._id)}
+                          onClick={() => onClickDetailPost(big)}
                           style={{ cursor: "pointer" }}
                         >
                           {/* <div
@@ -871,7 +878,7 @@ export default function Home() {
                           <Col key={item._id} xs={12}>
                             <a
                               className="fiveItem"
-                              onClick={() => onClickDetailPost(item?._id)}
+                              onClick={() => onClickDetailPost(item)}
                               style={{ cursor: "pointer" }}
                             >
                               {/* <div
@@ -1000,7 +1007,7 @@ export default function Home() {
                         <a
                           key={item._id}
                           className="railItem"
-                          onClick={() => onClickDetailPost(item?._id)}
+                          onClick={() => onClickDetailPost(item)}
                           style={{ cursor: "pointer" }}
                         >
                           {/* <div
@@ -1092,7 +1099,7 @@ export default function Home() {
                     <a
                       key={t._id}
                       className="rankItem"
-                      onClick={() => onClickDetailPost(t?._id)}
+                      onClick={() => onClickDetailPost(t)}
                       style={{ cursor: "pointer" }}
                     >
                       <div className="rankNum">{idx + 1}</div>

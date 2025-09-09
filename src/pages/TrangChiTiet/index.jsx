@@ -34,6 +34,7 @@ import "./trangchitiet.css";
 import LikeHearts from "./LikeHearts";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import avt from "./../../../public/logo_app.png";
+import slugify from "slugify";
 const { Title, Paragraph, Text } = Typography;
 
 const formatDate = (d) => {
@@ -51,7 +52,6 @@ const formatDate = (d) => {
 };
 
 export default function TrangChiTiet() {
-  const { postId: paramId } = useParams(); // hỗ trợ route "/:postId" hoặc "/tin/:postId"
   const [loading, setLoading] = useState(true);
   const [detail, setDetail] = useState(null);
   const [related, setRelated] = useState([]);
@@ -61,14 +61,10 @@ export default function TrangChiTiet() {
   const navigate = useNavigate();
   const [liked, setLiked] = useState(false);
 
-  console.log("detail: ", detail);
+  const { slugId, category } = useParams();
 
-  const queryId = useMemo(() => {
-    const s = new URLSearchParams(window.location.search).get("id");
-    return s || null;
-  }, []);
-  const id = new URLSearchParams(window.location.search).get("id");
-  //   const id = paramId || queryId;
+  // Tách id: lấy phần cuối sau dấu "-"
+  const id = slugId.split("-").pop();
 
   const getDetailPost = async (postId) => {
     const res = await apiFetchTongQuat(
@@ -481,50 +477,67 @@ export default function TrangChiTiet() {
                     <Empty description="Chưa có bài liên quan" />
                   ) : (
                     <Row gutter={[16, 16]}>
-                      {related.map((it) => (
-                        <Col key={it._id} xs={24} sm={12} md={12} lg={12}>
-                          <Link
-                            to={`/chi-tiet-bai-viet?id=${it?._id}`}
-                            onClick={() => {
-                              navigate(`/chi-tiet-bai-viet?id=${it?._id}`);
-                              window.scrollTo({ top: 0, behavior: "smooth" });
-                            }}
-                            className="rel-card"
-                          >
-                            <div
-                              className="rel-media"
-                              style={{ backgroundImage: `url(${it?.anhBia})` }}
-                            />
-                            <div className="rel-body">
-                              <Paragraph
-                                // className="rel-title"
-                                style={{ fontSize: 16, fontWeight: 700 }}
-                                ellipsis={{ rows: 2, tooltip: it?.title }}
-                              >
-                                {it?.title}
-                              </Paragraph>
-                              <div className="rel-meta">
-                                <span>{formatDate(it?.ngayDang)}</span>
-                                <i className="dot" />
-                                {/* <i className="dot" />
+                      {related.map((it) => {
+                        const category = slugify(it.theLoai.ten, {
+                          lower: true,
+                          locale: "vi",
+                        });
+                        const slug = slugify(it.title, {
+                          lower: true,
+                          locale: "vi",
+                        });
+
+                        return (
+                          <Col key={it._id} xs={24} sm={12} md={12} lg={12}>
+                            <Link
+                              to={`/chi-tiet-bai-viet/${category}/${slug}-${it?._id}`}
+                              onClick={() => {
+                                //   navigate(`/chi-tiet-bai-viet?id=${it?._id}`);
+
+                                navigate(
+                                  `/chi-tiet-bai-viet/${category}/${slug}-${it?._id}`
+                                );
+                                window.scrollTo({ top: 0, behavior: "smooth" });
+                              }}
+                              className="rel-card"
+                            >
+                              <div
+                                className="rel-media"
+                                style={{
+                                  backgroundImage: `url(${it?.anhBia})`,
+                                }}
+                              />
+                              <div className="rel-body">
+                                <Paragraph
+                                  // className="rel-title"
+                                  style={{ fontSize: 16, fontWeight: 700 }}
+                                  ellipsis={{ rows: 2, tooltip: it?.title }}
+                                >
+                                  {it?.title}
+                                </Paragraph>
+                                <div className="rel-meta">
+                                  <span>{formatDate(it?.ngayDang)}</span>
+                                  <i className="dot" />
+                                  {/* <i className="dot" />
                                 <span>
                                   <EyeOutlined /> {it?.views || 0}
                                 </span> */}
-                                <LikeHearts
-                                  postId={it?._id}
-                                  initialCount={it?.likeCount}
-                                  iconSize={18} // px
-                                  countSize={16} // px
-                                  btnPadding={[2, 2]} // [py, px] px
-                                  particleSize={20} // px
-                                  style={{ marginLeft: 8 }} // style cho wrapper
-                                  className="my-like"
-                                />
+                                  <LikeHearts
+                                    postId={it?._id}
+                                    initialCount={it?.likeCount}
+                                    iconSize={18} // px
+                                    countSize={16} // px
+                                    btnPadding={[2, 2]} // [py, px] px
+                                    particleSize={20} // px
+                                    style={{ marginLeft: 8 }} // style cho wrapper
+                                    className="my-like"
+                                  />
+                                </div>
                               </div>
-                            </div>
-                          </Link>
-                        </Col>
-                      ))}
+                            </Link>
+                          </Col>
+                        );
+                      })}
                     </Row>
                   )}
                 </>
@@ -569,32 +582,43 @@ export default function TrangChiTiet() {
                   </>
                 ) : (
                   <div className="hot-list">
-                    {hot.map((h, idx) => (
-                      <Link
-                        key={h._id}
-                        to={`/chi-tiet-bai-viet?id=${h?._id}`}
-                        className="hot-item"
-                        onClick={() => {
-                          navigate(`/chi-tiet-bai-viet?id=${h?._id}`);
-                          window.scrollTo({ top: 0, behavior: "smooth" });
-                        }}
-                      >
-                        <div className="hot-rank">{idx + 1}</div>
-                        <div className="hot-info">
-                          <Paragraph
-                            // className="hot-title"
-                            style={{ fontSize: 14, fontWeight: 700 }}
-                            ellipsis={{ rows: 2, tooltip: h?.title }}
-                          >
-                            {h?.title}
-                          </Paragraph>
-                          <div className="hot-meta">
-                            {/* <EyeOutlined /> {h?.views || "100+"} */}
-                            {/* <LikeHearts
+                    {hot.map((h, idx) => {
+                      const category = slugify(h.theLoai.ten, {
+                        lower: true,
+                        locale: "vi",
+                      });
+                      const slug = slugify(h.title, {
+                        lower: true,
+                        locale: "vi",
+                      });
+                      return (
+                        <Link
+                          key={h._id}
+                          to={`/chi-tiet-bai-viet/${category}/${slug}-${h?._id}`}
+                          className="hot-item"
+                          onClick={() => {
+                            navigate(
+                              `/chi-tiet-bai-viet/${category}/${slug}-${h?._id}`
+                            );
+                            window.scrollTo({ top: 0, behavior: "smooth" });
+                          }}
+                        >
+                          <div className="hot-rank">{idx + 1}</div>
+                          <div className="hot-info">
+                            <Paragraph
+                              // className="hot-title"
+                              style={{ fontSize: 14, fontWeight: 700 }}
+                              ellipsis={{ rows: 2, tooltip: h?.title }}
+                            >
+                              {h?.title}
+                            </Paragraph>
+                            <div className="hot-meta">
+                              {/* <EyeOutlined /> {h?.views || "100+"} */}
+                              {/* <LikeHearts
                               postId={h?._id}
                               initialCount={h?.likeCount}
                             /> */}
-                            {/* <LikeHearts
+                              {/* <LikeHearts
                               postId={h?._id}
                               initialCount={h?.likeCount}
                               iconSize={18} // px
@@ -604,14 +628,15 @@ export default function TrangChiTiet() {
                               style={{ marginLeft: 8 }} // style cho wrapper
                               className="my-like"
                             /> */}
+                            </div>
                           </div>
-                        </div>
-                        <div
-                          className="hot-thumb"
-                          style={{ backgroundImage: `url(${h?.anhBia})` }}
-                        />
-                      </Link>
-                    ))}
+                          <div
+                            className="hot-thumb"
+                            style={{ backgroundImage: `url(${h?.anhBia})` }}
+                          />
+                        </Link>
+                      );
+                    })}
                   </div>
                 )}
               </Card>

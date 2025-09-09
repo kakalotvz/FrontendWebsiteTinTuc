@@ -86,7 +86,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "chi-tiet-bai-viet",
+        path: "chi-tiet-bai-viet/:category/:slugId",
         element: <TrangChiTiet />,
       },
       {

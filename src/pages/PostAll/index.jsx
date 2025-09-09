@@ -26,6 +26,7 @@ import { apiFetchTongQuat } from "../../services/apiTongQuat";
 import "./PostAll.css";
 import LikeHearts from "../TrangChiTiet/LikeHearts";
 import PageTitle from "../../components/PageTitle/PageTitle";
+import slugify from "slugify";
 
 const { Title, Paragraph, Text } = Typography;
 const { Option } = Select;
@@ -152,8 +153,14 @@ export default function PostAll() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const onCardClick = (id) => {
-    navigate(`/chi-tiet-bai-viet?id=${id}`);
+  const onCardClick = (post) => {
+    const slug = slugify(post.title, { lower: true, locale: "vi" });
+    const category = slugify(post.theLoai.ten, {
+      lower: true,
+      locale: "vi",
+    });
+    navigate(`/chi-tiet-bai-viet/${category}/${slug}-${post?._id}`);
+    // navigate(`/chi-tiet-bai-viet?id=${id}`);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -302,7 +309,7 @@ export default function PostAll() {
                       <Card
                         className="post-card"
                         hoverable
-                        onClick={() => onCardClick(p._id)}
+                        onClick={() => onCardClick(p)}
                         bodyStyle={{ padding: 14 }}
                       >
                         <div
