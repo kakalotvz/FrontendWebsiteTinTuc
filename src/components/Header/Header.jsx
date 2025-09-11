@@ -285,7 +285,7 @@ const HeaderApp = () => {
 
         {/* Danh sách thể loại */}
         <nav className="drawer-list">
-          {(cats || []).slice(0, 12).map((c, idx) => {
+          {(cats || []).map((c, idx) => {
             const sp = new URLSearchParams(location.search);
             sp.set("theloai", c._id);
             sp.delete("page");
