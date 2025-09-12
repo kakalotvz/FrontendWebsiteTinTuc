@@ -54,6 +54,7 @@ export async function handleLoginSuccess({
   hasRefreshCookie = false,
   refreshToken,          // optional, chỉ để xác định cờ
   expiresInSeconds,
+  user
 }) {
   inMemoryAccessToken = accessToken;
 

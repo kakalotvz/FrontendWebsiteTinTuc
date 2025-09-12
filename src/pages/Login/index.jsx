@@ -80,7 +80,9 @@ const Login = () => {
         expiresInSeconds,
         // remember: values.remember, // ✅ check ở đây
         hasRefreshCookie: true,
+        user,
       });
+      localStorage.setItem("user", JSON.stringify(user?.vaiTro));
 
       //   if (values.remember) {
       //     localStorage.setItem("login_username", values.username);
@@ -90,7 +92,8 @@ const Login = () => {
       //     localStorage.setItem("login_remember", "false");
       //   }
       message.success(`Xin chào, ${user?.hoTen || values?.username}!`);
-      navigate("/admin");
+      //   navigate("/admin");
+      navigate("/admin", { state: { user } });
     } catch (e) {
       message.error(e.message || "Đăng nhập thất bại!");
     } finally {

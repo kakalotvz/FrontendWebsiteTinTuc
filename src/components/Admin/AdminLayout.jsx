@@ -22,6 +22,8 @@ const AdminLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [atTop, setAtTop] = useState(true);
+  const user = JSON.parse(localStorage.getItem("user"));
+  console.log("user: ", user);
 
   useEffect(() => {
     const onScroll = () => {
@@ -46,8 +48,8 @@ const AdminLayout = () => {
   // Lấy key hiện tại theo path URL
   const selectedKey = () => {
     if (location.pathname.includes("/admin/bai-viet")) return "1";
-    if (location.pathname.includes("/admin/giao-dich")) return "2";
     if (location.pathname.includes("/admin/thong-bao")) return "3";
+    if (location.pathname.includes("/admin/giao-dich")) return "2";
     if (location.pathname.includes("/admin/nguoi-dung")) return "4";
     if (location.pathname.includes("/admin/tap-da-mua")) return "5";
     if (location.pathname.includes("/admin/so-du")) return "6";
@@ -90,8 +92,8 @@ const AdminLayout = () => {
           onClick={({ key }) => {
             if (key === "0") navigate("/admin");
             if (key === "1") navigate("/admin/bai-viet");
-            if (key === "2") navigate("/admin/giao-dich");
             if (key === "3") navigate("/admin/thong-bao");
+            if (key === "2") navigate("/admin/giao-dich");
             if (key === "4") navigate("/admin/nguoi-dung");
             if (key === "5") navigate("/admin/tap-da-mua");
             if (key === "6") navigate("/admin/so-du");
@@ -103,21 +105,25 @@ const AdminLayout = () => {
           <Menu.Item key="1" icon={<BookOutlined />}>
             Quản lý bài viết
           </Menu.Item>
-          <Menu.Item key="2" icon={<DollarOutlined />}>
-            Giao dịch
-          </Menu.Item>
-          <Menu.Item key="5" icon={<BookOutlined />}>
-            Tập đã mua
-          </Menu.Item>
-          <Menu.Item key="6" icon={<DollarOutlined />}>
-            Số dư tài khoản
-          </Menu.Item>
-          <Menu.Item key="3" icon={<NotificationOutlined />}>
-            Thông báo
-          </Menu.Item>
-          <Menu.Item key="4" icon={<UserOutlined />}>
-            Người dùng
-          </Menu.Item>
+          {user === "admin" && (
+            <>
+              <Menu.Item key="3" icon={<NotificationOutlined />}>
+                Thông báo
+              </Menu.Item>
+              <Menu.Item key="2" icon={<DollarOutlined />}>
+                Giao dịch
+              </Menu.Item>
+              <Menu.Item key="5" icon={<BookOutlined />}>
+                Tập đã mua
+              </Menu.Item>
+              <Menu.Item key="6" icon={<DollarOutlined />}>
+                Số dư tài khoản
+              </Menu.Item>
+              <Menu.Item key="4" icon={<UserOutlined />}>
+                Người dùng
+              </Menu.Item>
+            </>
+          )}
         </Menu>
       </Sider>
 
