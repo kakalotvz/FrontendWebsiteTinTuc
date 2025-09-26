@@ -24,6 +24,7 @@ import "./layout.css";
 import PostAll from "./pages/PostAll";
 import DownloadVideo from "./pages/DownloadVideoTikTok.jsx";
 import ChinhSach from "./pages/ChinhSachBaoMat/ChinhSach.jsx";
+import ChatApp from "./pages/Test/test.jsx";
 
 const SCROLL_THRESHOLD = 80; // px
 
@@ -102,6 +103,16 @@ const router = createBrowserRouter([
         element: <ChinhSach />,
       },
     ],
+  },
+  {
+    path: "/test",
+    children: [
+      {
+        index: true,
+        element: <ChatApp />,
+      },
+    ],
+    errorElement: <NotFound />,
   },
   {
     path: "/dang-nhap-quan-ly",
