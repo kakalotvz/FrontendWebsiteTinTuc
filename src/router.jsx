@@ -25,6 +25,7 @@ import PostAll from "./pages/PostAll";
 import DownloadVideo from "./pages/DownloadVideoTikTok.jsx";
 import ChinhSach from "./pages/ChinhSachBaoMat/ChinhSach.jsx";
 import ChatApp from "./pages/Test/test.jsx";
+import BottomNav from "./components/BottomNav/BottomNav.jsx";
 
 const SCROLL_THRESHOLD = 80; // px
 
@@ -56,6 +57,7 @@ const Layout = () => {
       <HeaderApp />
       <Outlet />
       <FooterApp />
+      <BottomNav />
 
       {/* FAB cuộn nhanh */}
       <Tooltip
@@ -69,7 +71,7 @@ const Layout = () => {
           icon={atTop ? <ArrowDownOutlined /> : <ArrowUpOutlined />}
           //   tooltip={atTop ? "Xuống chân trang" : "Lên đầu trang"}
           onClick={atTop ? scrollToBottom : scrollToTop}
-          style={{ right: 24, bottom: 24 }}
+          style={{ right: 24, bottom: 100 }}
         />
       </Tooltip>
     </>

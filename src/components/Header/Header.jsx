@@ -230,7 +230,7 @@ const HeaderApp = () => {
         </div>
 
         {/* Link nhanh */}
-        <div className="drawer-quick">
+        {/* <div className="drawer-quick">
           <Button
             size="middle"
             type="#"
@@ -279,7 +279,7 @@ const HeaderApp = () => {
           >
             Tool download TikTok
           </Button>
-        </div>
+        </div> */}
 
         <Divider className="drawer-divider">Danh mục</Divider>
 
