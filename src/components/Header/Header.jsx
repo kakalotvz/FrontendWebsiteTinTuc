@@ -230,6 +230,32 @@ const HeaderApp = () => {
         </div>
 
         {/* Link nhanh */}
+        <div className="drawer-quick">
+          <Button
+            size="middle"
+            type="#"
+            className="quick-btn"
+            onClick={() => {
+              navigate("/dang-nhap-quan-ly");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+              setOpen(false);
+            }}
+          >
+            Đăng tin tức
+          </Button>
+          <Button
+            size="middle"
+            type="#"
+            className="quick-btn"
+            onClick={() => {
+              navigate("/download-video-tiktok");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+              setOpen(false);
+            }}
+          >
+            Tool download TikTok
+          </Button>
+        </div>
         {/* <div className="drawer-quick">
           <Button
             size="middle"
