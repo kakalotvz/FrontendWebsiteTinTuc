@@ -3,7 +3,6 @@ import {
   Layout,
   Input,
   Menu,
-  Badge,
   Button,
   Drawer,
   Space,
@@ -11,7 +10,11 @@ import {
   Divider,
   Tooltip,
 } from "antd";
-import { SearchOutlined, BellOutlined, MenuOutlined } from "@ant-design/icons";
+import {
+  SearchOutlined,
+  MenuOutlined,
+  AndroidOutlined,
+} from "@ant-design/icons";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { apiFetchTongQuat } from "../../services/apiTongQuat";
 import baomoi24h_logo from "./../../../public/baomoi24h_logo.png";
@@ -24,8 +27,8 @@ const HeaderApp = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const [q, setQ] = useState("");
 
-  // Lấy id thể loại hiện tại từ URL
   const currentCat = useMemo(() => {
     const sp = new URLSearchParams(location.search);
     return sp.get("theloai") || "";
@@ -43,16 +46,6 @@ const HeaderApp = () => {
       }
     })();
   }, []);
-
-  const slugify = (s = "") =>
-    s
-      .toString()
-      .trim()
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/(^-|-$)/g, "");
 
   const goCat = (c) => {
     navigate(`/tat-ca-bai-viet?theloai=${encodeURIComponent(c)}`);
@@ -78,19 +71,17 @@ const HeaderApp = () => {
       ),
     };
     const catItems = (cats || []).slice(0, 10).map((c) => {
-      // build URL mới, giữ lại các query khác nếu có
       const sp = new URLSearchParams(location.search);
       sp.set("theloai", c._id);
-      sp.delete("page"); // (tuỳ) reset phân trang khi đổi TL
+      sp.delete("page");
       const href = `/tat-ca-bai-viet?${sp.toString()}`;
-
       const isActive = currentCat === c._id;
 
       return {
         key: c._id,
         label: (
           <Link
-            to={href} // 👉 KHÔNG reload trang
+            to={href}
             className={`text-menu ${isActive ? "active_menu" : ""}`}
             onClick={() => {
               navigate(href);
@@ -123,39 +114,46 @@ const HeaderApp = () => {
 
   return (
     <Header className="header-app">
-      {/* Top row */}
       <div className="header-inner">
+        {/* logo */}
         <div className="brand">
           <a href="/" className="logo-wrap" aria-label="BAOMOI24H">
             <img className="brand-logo" src={baomoi24h_logo} alt="BAOMOI24H" />
           </a>
         </div>
 
-        {/* Desktop search */}
+        {/* search */}
         <div className="header-search">
           <Input
             size="large"
             placeholder="Tìm nhanh tin nóng, chủ đề, tags, mô tả…"
             prefix={<SearchOutlined />}
             allowClear
-            onChange={(e) => {
-              const v = e.target.value;
-
-              setQ(v);
-
-              if (v === "" && pathname !== "/tat-ca-bai-viet") {
-                // chỉ điều hướng khi bấm clear/xóa hết
-                navigate("/tat-ca-bai-viet", { replace: true });
-              }
-            }}
+            onChange={(e) => setQ(e.target.value)}
             onPressEnter={(e) => doSearch(e.target.value)}
           />
         </div>
 
+        {/* right icons */}
         <Space className="header-right">
-          {/* <Badge dot>
-            <BellOutlined className="header-icon" />
-          </Badge> */}
+          {/* Nút tải app Android */}
+          <Tooltip title="Tải app StoryMix trên Google Play" color="#22d3ee">
+            <Button
+              size="large"
+              className="android-btn"
+              type="#"
+              //   shape="circle"
+              icon={<AndroidOutlined style={{ fontSize: 25 }} />}
+              onClick={() =>
+                window.open(
+                  "https://play.google.com/store/apps/details?id=com.dokhactu.storymix",
+                  "_blank"
+                )
+              }
+            />
+          </Tooltip>
+
+          {/* Nút menu mobile */}
           <Button
             className="burger"
             type="#"
@@ -165,21 +163,20 @@ const HeaderApp = () => {
         </Space>
       </div>
 
-      {/* Desktop nav */}
+      {/* Nav desktop */}
       <div className="nav-wrap">
         <Menu mode="horizontal" className="nav-menu" items={items} />
       </div>
 
-      {/* Mobile drawer */}
+      {/* Drawer mobile */}
       <Drawer
         open={open}
         onClose={() => setOpen(false)}
         placement="left"
         width={400}
         className="nav-drawer"
-        title={null} // tự làm header custom bên trong body
+        title={null}
       >
-        {/* Header của Drawer */}
         <img
           height={200}
           style={{
@@ -198,118 +195,33 @@ const HeaderApp = () => {
           alt="DANTRI24H"
         />
 
-        {/* Ô tìm kiếm sticky */}
-        <div className="drawer-search">
-          <Tooltip
-            title="Gõ từ khóa (tiêu đề, chủ đề, tag, mô tả) rồi nhấn Enter để xem kết quả nha!"
-            color="#7F00FF"
-          >
-            <Input
-              size="large"
-              placeholder="Tìm bài viết…"
-              prefix={<SearchOutlined />}
-              allowClear
-              onPressEnter={(e) => {
-                const v = e.target.value;
-                if (v?.trim()) {
-                  navigate(
-                    `/tat-ca-bai-viet?search=${encodeURIComponent(v.trim())}`
-                  );
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                  setOpen(false);
-                }
-              }}
-              onChange={(e) => {
-                if (e.target.value === "") {
-                  navigate("/tat-ca-bai-viet");
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }
-              }}
-            />
-          </Tooltip>
-        </div>
-
-        {/* Link nhanh */}
+        {/* Nút tải app trong drawer */}
         <div className="drawer-quick">
           <Button
-            size="middle"
-            type="#"
             className="quick-btn"
-            onClick={() => {
-              navigate("/dang-nhap-quan-ly");
-              window.scrollTo({ top: 0, behavior: "smooth" });
-              setOpen(false);
-            }}
+            icon={<AndroidOutlined />}
+            onClick={() =>
+              window.open(
+                "https://play.google.com/store/apps/details?id=com.dokhactu.storymix",
+                "_blank"
+              )
+            }
           >
-            Đăng tin tức
+            Tải app StoryMix
           </Button>
           <Button
-            size="middle"
-            type="#"
             className="quick-btn"
             onClick={() => {
               navigate("/download-video-tiktok");
-              window.scrollTo({ top: 0, behavior: "smooth" });
               setOpen(false);
             }}
           >
             Tool download TikTok
           </Button>
         </div>
-        {/* <div className="drawer-quick">
-          <Button
-            size="middle"
-            type="#"
-            className="quick-btn"
-            onClick={() => {
-              navigate("/");
-              window.scrollTo({ top: 0, behavior: "smooth" });
-              setOpen(false);
-            }}
-          >
-            Trang chủ
-          </Button>
-          <Button
-            size="middle"
-            type="#"
-            className="quick-btn"
-            onClick={() => {
-              navigate("/tat-ca-bai-viet");
-              window.scrollTo({ top: 0, behavior: "smooth" });
-              setOpen(false);
-            }}
-          >
-            Tất cả bài viết
-          </Button>
-          <Button
-            size="middle"
-            type="#"
-            className="quick-btn"
-            onClick={() => {
-              navigate("/dang-nhap-quan-ly");
-              window.scrollTo({ top: 0, behavior: "smooth" });
-              setOpen(false);
-            }}
-          >
-            Đăng tin tức
-          </Button>
-          <Button
-            size="middle"
-            type="#"
-            className="quick-btn"
-            onClick={() => {
-              navigate("/download-video-tiktok");
-              window.scrollTo({ top: 0, behavior: "smooth" });
-              setOpen(false);
-            }}
-          >
-            Tool download TikTok
-          </Button>
-        </div> */}
 
         <Divider className="drawer-divider">Danh mục</Divider>
 
-        {/* Danh sách thể loại */}
         <nav className="drawer-list">
           {(cats || []).map((c, idx) => {
             const sp = new URLSearchParams(location.search);
@@ -338,58 +250,12 @@ const HeaderApp = () => {
           })}
         </nav>
 
-        <Divider className="drawer-divider">Chủ đề nổi bật</Divider>
-
-        {/* Chips chủ đề (tận dụng 8 thể loại đầu) */}
-        <div className="drawer-chips">
-          {(cats || []).slice(0, 8).map((c) => {
-            const sp = new URLSearchParams(location.search);
-            sp.set("theloai", c._id);
-            const href = `/tat-ca-bai-viet?${sp.toString()}`;
-            const isActive = currentCat === c._id;
-
-            return (
-              <Link
-                key={`chip-${c._id}`}
-                to={href}
-                className={`chip ${isActive ? "active" : ""}`}
-                onClick={() => {
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                  setOpen(false);
-                }}
-              >
-                {c.ten}
-              </Link>
-            );
-          })}
-        </div>
-
         <Divider className="drawer-divider" />
 
-        {/* Footer Drawer */}
         <div className="drawer-footer">
           <div className="df-line">
             © {new Date().getFullYear()} DANTRI24H.COM
           </div>
-          {/* <div className="df-line">
-            <a
-              onClick={() => {
-                navigate("/dieu-khoan");
-                setOpen(false);
-              }}
-            >
-              Điều khoản
-            </a>
-            <span className="dot" />
-            <a
-              onClick={() => {
-                navigate("/bao-mat");
-                setOpen(false);
-              }}
-            >
-              Bảo mật
-            </a>
-          </div> */}
         </div>
       </Drawer>
     </Header>
