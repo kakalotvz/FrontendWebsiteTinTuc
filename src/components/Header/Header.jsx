@@ -137,7 +137,7 @@ const HeaderApp = () => {
         {/* right icons */}
         <Space className="header-right">
           {/* Nút tải app Android */}
-          <Tooltip title="Tải app StoryMix trên Google Play" color="#22d3ee">
+          <Tooltip title="Tải app Tinhay trên Google Play" color="#22d3ee">
             <Button
               size="large"
               className="android-btn"
@@ -207,7 +207,7 @@ const HeaderApp = () => {
               )
             }
           >
-            Tải app StoryMix
+            Tải app Tinhay
           </Button>
           <Button
             className="quick-btn"
