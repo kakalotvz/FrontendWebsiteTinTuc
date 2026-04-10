@@ -7,6 +7,7 @@ import {
   DollarOutlined,
   HomeOutlined,
   NotificationOutlined,
+  TagsOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import AdminHeader from "./AdminHeader";
@@ -48,6 +49,7 @@ const AdminLayout = () => {
   // Lấy key hiện tại theo path URL
   const selectedKey = () => {
     if (location.pathname.includes("/admin/bai-viet")) return "1";
+    if (location.pathname.includes("/admin/the-loai")) return "7";
     if (location.pathname.includes("/admin/thong-bao")) return "3";
     if (location.pathname.includes("/admin/giao-dich")) return "2";
     if (location.pathname.includes("/admin/nguoi-dung")) return "4";
@@ -92,6 +94,7 @@ const AdminLayout = () => {
           onClick={({ key }) => {
             if (key === "0") navigate("/admin");
             if (key === "1") navigate("/admin/bai-viet");
+            if (key === "7") navigate("/admin/the-loai");
             if (key === "3") navigate("/admin/thong-bao");
             if (key === "2") navigate("/admin/giao-dich");
             if (key === "4") navigate("/admin/nguoi-dung");
@@ -104,6 +107,9 @@ const AdminLayout = () => {
           </Menu.Item>
           <Menu.Item key="1" icon={<BookOutlined />}>
             Quản lý bài viết
+          </Menu.Item>
+          <Menu.Item key="7" icon={<TagsOutlined />}>
+            Thể loại
           </Menu.Item>
           {user === "admin" && (
             <>

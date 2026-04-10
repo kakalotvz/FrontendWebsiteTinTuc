@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import DashboardPage from "./pages/Admin/DashboardPage";
 import TruyenManager from "./pages/Admin/TruyenManager";
+import TheLoaiManager from "./pages/Admin/TheLoaiManager";
 import NotFound from "./components/NotFound";
 import AdminLayout from "./components/Admin/AdminLayout";
 import ClickSpark from "./components/HieuUng/ClickSpark";
@@ -174,6 +175,7 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <DashboardPage /> },
           { path: "bai-viet", element: <TruyenManager /> },
+          { path: "the-loai", element: <TheLoaiManager /> },
           { path: "giao-dich", element: <GiaoDich /> },
           { path: "thong-bao", element: <ThongBao /> },
           { path: "nguoi-dung", element: <NguoiDung /> },
