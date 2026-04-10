@@ -192,7 +192,7 @@ const HeaderApp = () => {
           }}
           className="drawer-logo"
           src={baomoi24h_logo}
-          alt="DANTRI24H"
+          alt="TINHAY"
         />
 
         {/* Nút tải app trong drawer */}
@@ -254,7 +254,7 @@ const HeaderApp = () => {
 
         <div className="drawer-footer">
           <div className="df-line">
-            © {new Date().getFullYear()} DANTRI24H.COM
+            © {new Date().getFullYear()} TINHAY.COM
           </div>
         </div>
       </Drawer>
