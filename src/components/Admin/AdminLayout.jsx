@@ -14,6 +14,7 @@ import AdminHeader from "./AdminHeader";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import AppFooter from "../Footer/Footer";
 import baomoi24h_logo from "./../../../public/baomoi24h_logo.png";
+import { useAuthMe } from "../../contexts/AuthMeContext";
 
 const { Sider, Content } = Layout;
 const SCROLL_THRESHOLD = 80; // px
@@ -24,7 +25,7 @@ const AdminLayout = () => {
   const location = useLocation();
   const [atTop, setAtTop] = useState(true);
   const user = JSON.parse(localStorage.getItem("user"));
-  console.log("user: ", user);
+  const { role } = useAuthMe();
 
   useEffect(() => {
     const onScroll = () => {
@@ -108,9 +109,11 @@ const AdminLayout = () => {
           <Menu.Item key="1" icon={<BookOutlined />}>
             Quản lý bài viết
           </Menu.Item>
-          <Menu.Item key="7" icon={<TagsOutlined />}>
-            Thể loại
-          </Menu.Item>
+          {role === "admin" && (
+            <Menu.Item key="7" icon={<TagsOutlined />}>
+              Thể loại
+            </Menu.Item>
+          )}
           {user === "admin" && (
             <>
               <Menu.Item key="3" icon={<NotificationOutlined />}>
