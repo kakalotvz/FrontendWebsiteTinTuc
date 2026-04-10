@@ -15,6 +15,7 @@ import TapDaMua from "./pages/Admin/TapDaMua";
 import SoDuVaNapTien from "./pages/Admin/SoDuVaNapTien";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import AdminOnlyRoute from "./components/ProtectedRoute/AdminOnlyRoute";
 import PublicRoute from "./components/PublicRoute/PublicRoute";
 import HeaderApp from "./components/Header/Header";
 import FooterApp from "./components/Footer/Footer";
@@ -171,16 +172,21 @@ const router = createBrowserRouter([
     element: <ProtectedRoute />, // bọc bằng ProtectedRoute để ngăn chặn khi chưa login
     children: [
       {
-        element: <AdminLayout />, // layout admin
+        element: <AdminLayout />,
         children: [
           { index: true, element: <DashboardPage /> },
           { path: "bai-viet", element: <TruyenManager /> },
-          { path: "the-loai", element: <TheLoaiManager /> },
-          { path: "giao-dich", element: <GiaoDich /> },
-          { path: "thong-bao", element: <ThongBao /> },
-          { path: "nguoi-dung", element: <NguoiDung /> },
-          { path: "tap-da-mua", element: <TapDaMua /> },
-          { path: "so-du", element: <SoDuVaNapTien /> },
+          {
+            element: <AdminOnlyRoute />,
+            children: [
+              { path: "the-loai", element: <TheLoaiManager /> },
+              { path: "giao-dich", element: <GiaoDich /> },
+              { path: "thong-bao", element: <ThongBao /> },
+              { path: "nguoi-dung", element: <NguoiDung /> },
+              { path: "tap-da-mua", element: <TapDaMua /> },
+              { path: "so-du", element: <SoDuVaNapTien /> },
+            ],
+          },
         ],
       },
     ],
