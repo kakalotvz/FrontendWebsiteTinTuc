@@ -219,21 +219,19 @@ export default function CrawlerManager() {
                   <span><b>Đang quét:</b> {progress.source}</span>
                   <span><b>Tiến độ:</b> {progress.current} / {progress.total} bài</span>
                 </div>
-                <Table.Summary.Cell index={0} colSpan={6}>
-                  <div style={{ padding: '0 10px' }}>
-                    <div style={{ marginBottom: 5, fontSize: 13, color: '#555' }}>
-                      <LoadingOutlined /> Đang xử lý: <i>{progress.title}</i>
-                    </div>
-                    <div style={{ height: 10, background: '#f5f5f5', borderRadius: 5, overflow: 'hidden' }}>
-                        <div style={{ 
-                            height: '100%', 
-                            width: `${(progress.current / progress.total) * 100}%`, 
-                            background: 'linear-gradient(90deg, #1890ff 0%, #00c6ff 100%)',
-                            transition: 'width 0.3s ease'
-                        }} />
-                    </div>
+                <div style={{ padding: '0 10px' }}>
+                  <div style={{ marginBottom: 5, fontSize: 13, color: '#555' }}>
+                    <LoadingOutlined /> Đang xử lý: <i>{progress.title}</i>
                   </div>
-                </Table.Summary.Cell>
+                  <div style={{ height: 10, background: '#f5f5f5', borderRadius: 5, overflow: 'hidden' }}>
+                      <div style={{ 
+                          height: '100%', 
+                          width: `${(progress.current / progress.total) * 100}%`, 
+                          background: 'linear-gradient(90deg, #1890ff 0%, #00c6ff 100%)',
+                          transition: 'width 0.3s ease'
+                      }} />
+                  </div>
+                </div>
               </Card>
             )}
 
