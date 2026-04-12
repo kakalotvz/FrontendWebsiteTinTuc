@@ -7,9 +7,10 @@ import moment from "moment";
 import {
   PlusOutlined, EditOutlined, DeleteOutlined, 
   PlayCircleOutlined, SettingOutlined, GlobalOutlined,
-  PauseOutlined, CaretRightOutlined
+  PauseOutlined, CaretRightOutlined, LoadingOutlined
 } from "@ant-design/icons";
 import { apiFetchTongQuat } from "../../services/apiTongQuat";
+import { io } from "socket.io-client";
 
 const { Option } = Select;
 
@@ -23,6 +24,10 @@ export default function CrawlerManager() {
   
   const [formConfig] = Form.useForm();
   const [formSettings] = Form.useForm();
+
+  // State cho progress
+  const [progress, setProgress] = useState(null); // { current, total, title, source }
+  const [isCrawling, setIsCrawling] = useState(false);
 
   const fetchData = async () => {
     setLoading(true);
@@ -43,6 +48,25 @@ export default function CrawlerManager() {
   };
 
   useEffect(() => { fetchData(); }, []);
+
+  // Kết nối socket để nhận progress
+  useEffect(() => {
+    const socket = io(import.meta.env.VITE_API_URL || "https://backendwebapptintuc-backendwebapptintuc.up.railway.app");
+    
+    socket.on("crawler:status", (data) => {
+      setIsCrawling(data.running);
+      if (!data.running) {
+        setTimeout(() => setProgress(null), 3000); // Ẩn progress sau khi xong 3 giây
+      }
+    });
+
+    socket.on("crawler:progress", (data) => {
+      setProgress(data);
+      setIsCrawling(true);
+    });
+
+    return () => socket.disconnect();
+  }, []);
 
   const handleSaveConfig = async (values) => {
     // Chuẩn hóa dữ liệu ngày tháng
@@ -189,6 +213,30 @@ export default function CrawlerManager() {
       >
         <Tabs defaultActiveKey="1">
           <Tabs.TabPane tab={<span><GlobalOutlined /> Danh sách nguồn tin</span>} key="1">
+            {progress && (
+              <Card size="small" style={{ marginBottom: 16, border: '1px solid #1890ff', backgroundColor: '#e6f7ff' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+                  <span><b>Đang quét:</b> {progress.source}</span>
+                  <span><b>Tiến độ:</b> {progress.current} / {progress.total} bài</span>
+                </div>
+                <Table.Summary.Cell index={0} colSpan={6}>
+                  <div style={{ padding: '0 10px' }}>
+                    <div style={{ marginBottom: 5, fontSize: 13, color: '#555' }}>
+                      <LoadingOutlined /> Đang xử lý: <i>{progress.title}</i>
+                    </div>
+                    <div style={{ height: 10, background: '#f5f5f5', borderRadius: 5, overflow: 'hidden' }}>
+                        <div style={{ 
+                            height: '100%', 
+                            width: `${(progress.current / progress.total) * 100}%`, 
+                            background: 'linear-gradient(90deg, #1890ff 0%, #00c6ff 100%)',
+                            transition: 'width 0.3s ease'
+                        }} />
+                    </div>
+                  </div>
+                </Table.Summary.Cell>
+              </Card>
+            )}
+
             <Table 
                 rowKey="_id" 
                 dataSource={configs} 
@@ -221,6 +269,14 @@ export default function CrawlerManager() {
                   <Option value="12h">12 giờ / lần</Option>
                   <Option value="1d">1 ngày / lần</Option>
                 </Select>
+              </Form.Item>
+
+              <Form.Item 
+                label="Giới hạn số bài viết mỗi lần quét" 
+                name="maxArticles"
+                help="Tránh lãng phí tài nguyên AI nếu RSS có quá nhiều tin cũ"
+              >
+                <Input type="number" min={1} max={50} style={{ width: '100%' }} />
               </Form.Item>
               
               <Form.Item>

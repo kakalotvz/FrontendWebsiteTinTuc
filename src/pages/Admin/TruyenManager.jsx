@@ -334,22 +334,27 @@ export default function TruyenManager() {
         </Col>
         {dataPost.map((p) => (
           <Col key={p.id} xs={24} sm={12} md={12} lg={8} xl={6}>
-            <Card
-              className="pm-card"
-              hoverable
-              cover={<img className="pm-cover" src={p?.anhBia} alt={p.title} />}
-            >
-              {/* tags */}
-              <Space size={[8, 8]} wrap className="mb8">
-                {(p.tags || []).map((t, i) => (
-                  <Tag key={i} color={getTagHexColor(t)}>
-                    {t}
-                  </Tag>
-                ))}
-              </Space>
+              <Card
+                className="pm-card"
+                hoverable
+                cover={<img className="pm-cover" src={p?.anhBia} alt={p.title} />}
+              >
+                {/* tags */}
+                <Space size={[8, 8]} wrap className="mb8">
+                  {(p.tags || []).map((t, i) => (
+                    <Tag key={i} color={getTagHexColor(t)}>
+                      {t}
+                    </Tag>
+                  ))}
+                  {p.isAiGenerated && (
+                    <Tag color="purple" style={{ fontWeight: 'bold' }}>
+                      AI ✨
+                    </Tag>
+                  )}
+                </Space>
 
-              {/* title */}
-              <h3 className="pm-title">{p.title}</h3>
+                {/* title */}
+                <h3 className="pm-title">{p.title}</h3>
 
               {/* excerpt */}
               <p className="pm-excerpt">{p.moTaNgan}</p>
