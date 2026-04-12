@@ -1,0 +1,466 @@
+.detail-page {
+  --header-h: 100px;
+}
+.read-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  z-index: 2000;
+  background: linear-gradient(90deg, #7f00ff, #e100ff);
+  box-shadow: 0 4px 14px rgba(127, 0, 255, 0.35);
+}
+
+/* ===== HERO ===== */
+.hero-detail {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  min-height: 500px;
+  display: flex;
+  align-items: flex-end;
+}
+.hero-mask {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      1200px 500px at -10% -40%,
+      rgba(255, 255, 255, 0.15),
+      transparent 60%
+    ),
+    radial-gradient(
+      1200px 500px at 110% -40%,
+      rgba(255, 255, 255, 0.12),
+      transparent 60%
+    ),
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, 0.65) 80%);
+}
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+.breadcrumb {
+  color: #fff;
+}
+.breadcrumb a {
+  color: #fff;
+}
+
+.hero-tags {
+  display: flex;
+  gap: 8px;
+  margin: 6px 0 8px;
+}
+.pill {
+  border: none;
+  font-weight: 800;
+  background: linear-gradient(90deg, #7f00ff, #e100ff);
+  color: #fff !important;
+  border-radius: 999px;
+  padding: 2px 10px;
+  box-shadow: 0 6px 18px rgba(127, 0, 255, 0.25);
+}
+.hero-title {
+  margin: 6px 0 10px !important;
+  color: #fff !important;
+  text-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+.hero-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.meta-col {
+  display: flex;
+  flex-direction: column;
+}
+.meta-sub {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  opacity: 0.95;
+}
+.dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.7;
+  display: inline-block;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 22px 24px 32px;
+}
+
+/* ===== ARTICLE ===== */
+.article {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.06);
+  padding: 16px 18px 20px;
+}
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.desc {
+  font-size: 16px !important;
+  color: #444 !important;
+  background: #faf7ff;
+  border: 1px dashed #e8e1ff;
+  padding: 12px 14px;
+  border-radius: 12px;
+}
+
+/* nội dung HTML */
+.article-html {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #1b1d24;
+}
+.article-html img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  margin: 12px 0;
+}
+.article-html p {
+  margin: 0 0 14px;
+}
+.article-html h1,
+.article-html h2,
+.article-html h3 {
+  font-weight: 900;
+  margin: 20px 0 12px;
+  scroll-margin-top: calc(var(--header-h) + 12px);
+}
+.article-html blockquote {
+  margin: 12px 0;
+  padding: 10px 14px;
+  border-left: 4px solid #7f00ff;
+  background: #fafafa;
+  border-radius: 8px;
+}
+
+/* tác giả */
+.author-box {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: linear-gradient(180deg, #ffffff, #faf7ff);
+  border: 1px solid #f0e7ff;
+  border-radius: 14px;
+  padding: 12px;
+  margin-top: 16px;
+}
+.author-name {
+  font-weight: 800;
+}
+.author-note {
+  color: #666;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  position: sticky;
+  top: calc(var(--header-h) + 10px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.box {
+  border-radius: 16px;
+  overflow: hidden;
+}
+.box .boxTitle {
+  font-weight: 800;
+  padding: 10px 12px;
+  background: linear-gradient(90deg, #ffe1f3, #e8ddff);
+  border-bottom: 1px solid #f0e7ff;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+.box .ant-card-body {
+  padding: 12px;
+}
+
+/* hot list */
+.hot-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.hot-item {
+  display: grid;
+  grid-template-columns: 36px 1fr 72px;
+  gap: 10px;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  padding: 8px 6px;
+  border-radius: 10px;
+  transition: 0.15s;
+}
+.hot-item:hover {
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+}
+.hot-rank {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  background: linear-gradient(180deg, #7f00ff, #e100ff);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(127, 0, 255, 0.2);
+}
+.hot-title {
+  font-weight: 800 !important;
+  margin: 0 !important;
+}
+.hot-thumb {
+  width: 72px;
+  height: 56px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+}
+.hot-meta {
+  font-size: 12px;
+  color: #666;
+}
+
+/* back top */
+.backTop {
+  align-self: center;
+}
+
+/* ===== RELATED ===== */
+.rel-card {
+  display: flex;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: 0.18s;
+  border: 1px solid #f2f2f2;
+}
+.rel-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px rgba(127, 0, 255, 0.18);
+}
+.rel-media {
+  width: 36%;
+  min-width: 140px;
+  height: 120px;
+  background-size: cover;
+  background-position: center;
+  border-right: 1px solid #f6f6f6;
+}
+.rel-body {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 12px;
+}
+.rel-title {
+  font-weight: 800 !important;
+  margin: 0 0 6px !important;
+}
+.rel-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #666;
+  justify-content: space-between;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 992px) {
+  .hero-detail {
+    min-height: 280px;
+  }
+  .container {
+    padding: 16px;
+  }
+}
+@media (max-width: 576px) {
+  .hero-inner {
+    padding: 16px;
+  }
+  .hero-title {
+    font-size: 22px !important;
+  }
+  .rel-media {
+    min-width: 110px;
+    height: 100px;
+  }
+}
+
+/* KHÔNG cho select/copy trong vùng bài viết */
+.article-html,
+.article-html * {
+  -webkit-user-select: none; /* Safari/Chrome iOS */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE/Edge cũ */
+  user-select: none; /* Chuẩn */
+  -webkit-touch-callout: none; /* chặn menu giữ lâu trên iOS */
+}
+
+/* Ảnh: không cho kéo/drag để lưu */
+.article-html img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  pointer-events: none; /* chặn click/drag trực tiếp vào ảnh */
+}
+
+/* Nếu ảnh nằm trong link và bạn MUỐN cho click link hoạt động */
+.article-html a img {
+  pointer-events: auto;
+}
+
+/* Nếu có chỗ muốn cho phép copy lại (VD. trích dẫn) */
+.article-html .allow-select,
+.article-html .allow-select * {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+}
+
+/* Button primary 2 màu dạng gradient */
+.backTop.ant-btn-primary {
+  background-image: linear-gradient(90deg, #7f00ff, #e100ff);
+  border: 0;
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(127, 0, 255, 0.25);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s;
+}
+
+.backTop.ant-btn-primary:hover,
+.backTop.ant-btn-primary:focus {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 30px rgba(127, 0, 255, 0.35);
+}
+.backTop .anticon {
+  color: currentColor;
+} /* icon ăn màu chữ */
+
+.backPage {
+  background-image: linear-gradient(90deg, #7f00ff, #e100ff);
+  border: 0;
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(127, 0, 255, 0.25);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s;
+}
+
+.box .boxTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  padding: 10px 12px;
+  background: linear-gradient(90deg, #ffe1f3, #e8ddff);
+  border-bottom: 1px solid #f0e7ff;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.tocIcon {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: linear-gradient(135deg, #7f00ff, #e100ff);
+  box-shadow: 0 6px 16px rgba(127, 0, 255, 0.25);
+  font-size: 14px;
+}
+
+/* Khung cuộn riêng cho mục lục */
+.tocScroll {
+  max-height: 500px; /* bạn đổi số tùy ý */
+  overflow: auto;
+  padding-right: 4px;
+  scroll-behavior: smooth; /* cuộn mượt trong khung này nếu có */
+}
+
+/* Scrollbar đẹp */
+.tocScroll {
+  scrollbar-width: thin;
+}
+.tocScroll::-webkit-scrollbar {
+  width: 6px;
+}
+.tocScroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #7f00ff, #e100ff);
+  border-radius: 999px;
+}
+
+/* Toàn trang cuộn mượt khi click anchor */
+html,
+body {
+  scroll-behavior: smooth;
+}
+
+/* Khi cuộn tới heading, tránh bị header che khuất */
+.article-html h1,
+.article-html h2,
+.article-html h3,
+.article-html p[id],
+.article-html li[id],
+.article-html div[id] {
+  scroll-margin-top: calc(var(--header-h, 80px) + 12px);
+}
+
+/* (tùy chọn) Làm nổi bật Anchor */
+.ant-anchor-wrapper .ant-anchor-link-title {
+  font-weight: 600;
+}
+.ant-anchor .ant-anchor-ink::before {
+  background: linear-gradient(90deg, #7f00ff, #e100ff);
+}
+
+/* Nút tim đỏ */
+.heartBtn {
+  border: 0;
+  color: #ff4d4f; /* màu tim */
+  background: rgba(255, 77, 79, 0.12); /* nền nhạt */
+  box-shadow: 0 8px 20px rgba(255, 77, 79, 0.2);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+.heartBtn:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+.heartBtn .anticon {
+  color: currentColor;
+} /* icon ăn theo màu chữ */
+.heartBtn.on {
+  /* trạng thái đã thích */
+  background: #ff4d4f;
+  color: #fff;
+  box-shadow: 0 10px 26px rgba(255, 77, 79, 0.35);
+}

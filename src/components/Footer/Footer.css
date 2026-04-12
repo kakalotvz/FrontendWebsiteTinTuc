@@ -1,0 +1,210 @@
+/* ---------- Layout cơ bản ---------- */
+.footer-app {
+  background: #0b1220;
+  color: #c9d4e3;
+  padding: 48px 16px 24px;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+}
+
+.foot-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ---------- Grid ---------- */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+  gap: 28px;
+  align-items: start;
+}
+
+@media (max-width: 992px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Brand ---------- */
+.foot-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.brand-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ff3b3b, #ff9f1a);
+  color: #fff;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.brand-text {
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  font-size: 20px;
+}
+
+/* ---------- Text & links ---------- */
+.foot-title {
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: 0.3px;
+}
+
+.foot-text {
+  margin: 0 0 14px;
+  color: #aab6c8;
+  line-height: 1.65;
+}
+
+.foot-text.small {
+  font-size: 13px;
+}
+
+.foot-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.foot-links li {
+  margin: 8px 0;
+}
+
+.foot-links a,
+.foot-hint a,
+.foot-bottom a {
+  color: #c9d4e3;
+  text-decoration: none;
+}
+
+.foot-links a:hover,
+.foot-hint a:hover,
+.foot-bottom a:hover {
+  color: #fff;
+}
+
+/* ---------- Socials ---------- */
+.socials {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.socials a {
+  color: #c9d4e3;
+  font-size: 18px;
+}
+
+.socials a:hover {
+  color: #fff;
+}
+
+/* ---------- Bottom ---------- */
+.foot-bottom {
+  margin-top: 28px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.foot-bottom-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.foot-bottom .dot {
+  width: 4px;
+  height: 4px;
+  background: #5e6a7e;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+/* ---------- Modal Legal ---------- */
+.legal-modal .ant-modal-content {
+  border-radius: 14px;
+  background: #0f1726;
+  color: #cfe0ff;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.legal-modal .ant-modal-header {
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.legal-modal .ant-modal-title {
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.legal-modal .ant-modal-body {
+  max-height: 70vh;
+  overflow: auto;
+  padding: 20px 8px 8px 8px;
+}
+
+/* Custom scrollbar (WebKit) */
+.legal-modal .ant-modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+.legal-modal .ant-modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.legal-modal .ant-modal-body::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #4f46e5, #06b6d4);
+  border-radius: 8px;
+}
+
+/* Nội dung trong modal */
+.legal-content {
+  padding: 0 8px 8px;
+}
+
+.legal-content h4 {
+  color: #ffffff;
+  margin-top: 12px;
+  margin-bottom: 8px;
+  font-weight: 800;
+}
+
+.legal-content p,
+.legal-content li {
+  color: #cfe0ff;
+}
+
+.legal-content ul {
+  margin: 8px 0 16px 18px;
+}
+
+/* ---------- Inputs ---------- */
+.foot-hint {
+  margin-top: 8px;
+  color: #8fa2bf;
+  font-size: 13px;
+}
