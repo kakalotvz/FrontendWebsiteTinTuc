@@ -80,8 +80,9 @@ export default function CrawlerManager() {
     }
 
     try {
-      if (editingConfig) {
-        await apiFetchTongQuat(`/crawler/config/${editingConfig._id}`, {
+      // Ưu tiên kiểm tra xem payload có _id không để quyết định PUT hay POST
+      if (payload._id) {
+        await apiFetchTongQuat(`/crawler/config/${payload._id}`, {
           method: "PUT",
           body: payload
         });
@@ -94,6 +95,7 @@ export default function CrawlerManager() {
         message.success("Thêm mới thành công");
       }
       setOpenConfigModal(false);
+      setEditingConfig(null);
       fetchData();
     } catch (e) { message.error(e.message); }
   };
